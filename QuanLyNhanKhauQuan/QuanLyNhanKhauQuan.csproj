@@ -112,6 +112,9 @@
     <EmbeddedResource Include="FormMenu.resx">
       <DependentUpon>FormMenu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormPhuong.resx">
+      <DependentUpon>FormPhuong.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormToDanPho.resx">
       <DependentUpon>FormToDanPho.cs</DependentUpon>
     </EmbeddedResource>

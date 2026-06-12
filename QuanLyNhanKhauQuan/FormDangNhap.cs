@@ -20,6 +20,7 @@ namespace QuanLyNhanKhauQuan {
 					return;
 				if(!txtTenDangNhap.KiemTraTrong("mật khẩu"))
 					return;
+				var taiKhoan = txtTenDangNhap.Text.Trim();
 				var matKhauDaHash = HashPasswordSHA512ToBytes(txtMatKhau.Text);
 				var ketQua = Db.LayGiaTri(
 						@"IF EXISTS (
@@ -27,11 +28,11 @@ namespace QuanLyNhanKhauQuan {
 								WHERE TenDangNhap = @TenDangNhap AND MatKhau = @MatKhau AND TrangThai = 1
 							)
 							SELECT 1 ELSE SELECT 0;",
-						new SqlParameter("@TenDangNhap", txtTenDangNhap.Text.Trim()),
+						new SqlParameter("@TenDangNhap", taiKhoan),
 						new SqlParameter("@MatKhau", matKhauDaHash));
 				var isExist = Convert.ToInt32(ketQua) == 1;
 				if(isExist) {
-					var form = new FormMain(txtTenDangNhap.Text.Trim());
+					var form = new FormMenu(taiKhoan);
 					Hide();
 					form.ShowDialog();
 					Close();
