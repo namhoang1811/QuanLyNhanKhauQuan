@@ -6,5 +6,6 @@ using System.Threading.Tasks;
 
 namespace QuanLyNhanKhauQuan {
 	internal static class ComboBoxHelper {
+		public static int  d = 2;
 	}
 }
