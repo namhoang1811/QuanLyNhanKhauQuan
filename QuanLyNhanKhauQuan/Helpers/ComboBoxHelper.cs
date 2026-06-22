@@ -1,8 +1,21 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Windows.Forms;
 
 namespace QuanLyNhanKhauQuan {
 	internal static class ComboBoxHelper {
+		
+		public static void ChonTheoCell(this ComboBox comboBox, DataGridViewCell cell) {
+			var text = Convert.ToString(cell.Value);
+			for(int i = 0; i < comboBox.Items.Count; i++) {
+				if(comboBox.GetItemText(comboBox.Items[i]) == text) {
+					comboBox.SelectedIndex = i;
+					return;
+				}
+			}
+			comboBox.SelectedIndex = -1;
+		}
+
 		public static void NapComboBox(this ComboBox comboBox, string sql, string displayMember, string valueMember) {
 			DataTable table = Db.LayDuLieu(sql);
 			comboBox.DataSource = table;

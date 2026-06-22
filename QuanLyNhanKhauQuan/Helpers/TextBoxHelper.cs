@@ -1,7 +1,13 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace QuanLyNhanKhauQuan {
 	internal static class TextBoxHelper {
+		
+		public static void NapTextBox(this TextBox textBox, DataGridViewCell cell) {
+			textBox.Text = Convert.ToString(cell.Value);
+		}
+
 		public static bool KiemTraTrong(this TextBox textBox, string tenTruong) {
 			if(string.IsNullOrWhiteSpace(textBox.Text)) {
 				MessageBox.Show(

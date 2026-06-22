@@ -126,9 +126,6 @@
     <EmbeddedResource Include="Forms\Danh mục\FormToDanPho.resx">
       <DependentUpon>FormToDanPho.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Hệ thống\FormTaiKhoan.resx">
-      <DependentUpon>FormTaiKhoan.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Database\CSDL.sql" />

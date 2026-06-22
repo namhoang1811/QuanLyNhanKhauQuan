@@ -10,53 +10,67 @@ namespace QuanLyNhanKhauQuan {
 		}
 
 		private void FormPhuong_Load(object sender, EventArgs e) {
+			NapQuyen();
 			TaiDuLieu();
 			CapNhatTrangThaiNutBam(false);
+		}
+		private void NapQuyen() {
+			cboQuyen.Items.Clear();
+			cboQuyen.Items.Add("Admin");
+			cboQuyen.Items.Add("Member");
+			cboQuyen.SelectedIndex = -1;
 		}
 
 		private void TaiDuLieu() {
 			// 1. Tạm thời ngắt sự kiện để DataGridView không tự động nhảy vào hàm SelectionChanged
-			dgvPhuong.SelectionChanged -= dgvPhuong_SelectionChanged;
+			dgvPhuong.SelectionChanged -= DgvTaiKhoan_SelectionChanged;
 			// 2. Đổ dữ liệu mới vào bảng
-			dgvPhuong.DataSource = Db.LayDuLieu("SELECT MaPhuong, TenPhuong, DienThoai, DiaChi, GhiChu FROM tblPhuong ORDER BY MaPhuong");
+			dgvPhuong.DataSource = Db.LayDuLieu("SELECT TenDangNhap, null, HoTen, ViTri, Quyen, DienThoai FROM tblPhuong ORDER BY NgaySua DESC");
 			// 3. Hủy bỏ hoàn toàn ô đang được focus ngầm
 			dgvPhuong.CurrentCell = null;
 			// 4. Bật lại sự kiện để bảng phản hồi với thao tác của người dùng như bình thường
-			dgvPhuong.SelectionChanged += dgvPhuong_SelectionChanged;
+			dgvPhuong.SelectionChanged += DgvTaiKhoan_SelectionChanged;
 		}
 
-		private bool KiemTraDuLieu() {
-			if(!txtMaPhuong.KiemTraTrong("mã phường"))
+		private bool KiemTraDuLieu(bool isCreate) {
+			if(!txtTenDangNhap.KiemTraTrong("tên đăng nhập"))
 				return false;
-			if(!txtTenPhuong.KiemTraTrong("tên phường"))
+			if(isCreate && !txtMatKhau.KiemTraTrong("mật khẩu"))
 				return false;
-			if(!txtDienThoai.KiemTraTrong("điện thoại"))
+			if(!txtHoTen.KiemTraTrong("vị trí"))
 				return false;
-			if(!txtDienThoai.KiemTraSoDienThoai())
+			if(!txtViTri.KiemTraTrong("họ và tên"))
 				return false;
-			if(!txtDiaChi.KiemTraTrong("địa chỉ"))
+			if(!cboQuyen.KiemTraChon("quyền"))
 				return false;
 			return true;
 		}
 
 		private void XoaTrang() {
-			txtMaPhuong.Clear();
-			txtTenPhuong.Clear();
+			txtTenDangNhap.Clear();
+			txtMatKhau.Clear();
+			txtHoTen.Clear();
+			txtViTri.Clear();
+			cboQuyen.SelectedIndex = -1;
 			txtDienThoai.Clear();
-			txtDiaChi.Clear();
-			txtGhiChu.Clear();
 			txtTimKiem.Clear();
-			txtMaPhuong.Enabled = true;
-			txtMaPhuong.Focus();
+			txtTenDangNhap.Enabled = true;
+			txtTenDangNhap.Focus();
 			CapNhatTrangThaiNutBam(false);
 		}
 
-		private void btnThem_Click(object sender, EventArgs e) {
+		private void BtnThem_Click(object sender, EventArgs e) {
 			try {
-				if(!KiemTraDuLieu())
+				if(!KiemTraDuLieu(true))
 					return;
-				Db.ThucThiSP("sp_Phuong_Them", new SqlParameter("@MaPhuong", txtMaPhuong.Text.Trim()), new SqlParameter("@TenPhuong", txtTenPhuong.Text.Trim()), new SqlParameter("@DienThoai", txtDienThoai.Text.Trim()), new SqlParameter("@DiaChi", txtDiaChi.Text.Trim()), new SqlParameter("@GhiChu", txtGhiChu.Text.Trim()));
-				MessageBoxHelper.ThongBao("Thêm phường thành công.");
+				Db.ThucThiSP("sp_TaiKhoan_Them", 
+					new SqlParameter("@TenDangNhap", txtTenDangNhap.Text.Trim()), 
+					new SqlParameter("@MatKhau", txtMatKhau.Text), 
+					new SqlParameter("@HoTen", txtHoTen.Text.Trim()), 
+					new SqlParameter("@ViTri", txtViTri.Text.Trim()), 
+					new SqlParameter("@Quyen", cboQuyen.Text.Trim()),
+					new SqlParameter("@DienThoai", txtDienThoai.Text.Trim()));
+				MessageBoxHelper.ThongBao("Thêm tài khoản thành công.");
 				TaiDuLieu();
 				XoaTrang();
 			} catch(Exception ex) {
@@ -64,18 +78,42 @@ namespace QuanLyNhanKhauQuan {
 			}
 		}
 
-		private void btnSua_Click(object sender, EventArgs e) {
+		private void BtnSua_Click(object sender, EventArgs e) {
 			try {
-				if(!KiemTraDuLieu())
+				if(!KiemTraDuLieu(false))
 					return;
-				Db.ThucThiSP("sp_Phuong_Sua", new SqlParameter("@MaPhuong", txtMaPhuong.Text.Trim()), new SqlParameter("@TenPhuong", txtTenPhuong.Text.Trim()), new SqlParameter("@DienThoai", txtDienThoai.Text.Trim()), new SqlParameter("@DiaChi", txtDiaChi.Text.Trim()), new SqlParameter("@GhiChu", txtGhiChu.Text.Trim()));
-				MessageBoxHelper.ThongBao("Cập nhật phường thành công.");
+				Db.ThucThiSP("sp_TaiKhoan_Sua",
+					new SqlParameter("@TenDangNhap", txtTenDangNhap.Text.Trim()),
+					new SqlParameter("@MatKhau", txtMatKhau.Text),
+					new SqlParameter("@HoTen", txtHoTen.Text.Trim()),
+					new SqlParameter("@ViTri", txtViTri.Text.Trim()),
+					new SqlParameter("@Quyen", cboQuyen.Text.Trim()),
+					new SqlParameter("@DienThoai", txtDienThoai.Text.Trim()));
+				MessageBoxHelper.ThongBao("Cập nhật tài khoản thành công.");
 				TaiDuLieu();
 			} catch(Exception ex) {
 				ex.BaoLoi();
 			}
 		}
-		private void txtTimKiem_TextChanged(object sender, EventArgs e) {
+		private void BtnXoa_Click(object sender, EventArgs e) {
+			try {
+				if(!txtTenDangNhap.KiemTraTrong("tên đăng nhập cần xóa"))
+					return;
+				Db.ThucThiSP("sp_TaiKhoan_Xoa", new SqlParameter("@TenDangNhap", txtTenDangNhap.Text.Trim()));
+				MessageBoxHelper.ThongBao("Xóa tài khoản thành công.");
+				TaiDuLieu();
+				XoaTrang();
+			} catch(Exception ex) {
+				ex.BaoLoi();
+			}
+		}
+
+		private void BtnLamMoi_Click(object sender, EventArgs e) {
+			XoaTrang();
+			TaiDuLieu();
+		}
+
+		private void TxtTimKiem_TextChanged(object sender, EventArgs e) {
 			var dt = dgvPhuong.DataSource as DataTable;
 			if(dt != null) {
 				string tuKhoa = txtTimKiem.Text.Trim();
@@ -86,40 +124,22 @@ namespace QuanLyNhanKhauQuan {
 					// 3. Sử dụng cú pháp tương tự mệnh đề WHERE trong SQL để lọc
 					// Lọc tương đối (LIKE) trên cả 2 cột: Mã Phường và Tên Phường
 					// Lưu ý: Cú pháp RowFilter không phân biệt chữ hoa chữ thường
-					dt.DefaultView.RowFilter = $"MaPhuong LIKE '%{tuKhoa}%' OR TenPhuong LIKE '%{tuKhoa}%'";
+					dt.DefaultView.RowFilter = $"TenDangNhap LIKE '%{tuKhoa}%' OR HoTen LIKE '%{tuKhoa}%' OR ViTri LIKE '%{tuKhoa}%' OR DienThoai LIKE '%{tuKhoa}%'";
 				}
 			}
 		}
-		private void btnXoa_Click(object sender, EventArgs e) {
-			try {
-				if(!txtMaPhuong.KiemTraTrong("mã phường cần xóa"))
-					return;
-				if(!MessageBoxHelper.Hoi("Xóa phường sẽ bị chặn nếu đã có tổ dân phố. Bạn muốn tiếp tục?"))
-					return;
-				Db.ThucThiSP("sp_Phuong_Xoa", new SqlParameter("@MaPhuong", txtMaPhuong.Text.Trim()));
-				MessageBoxHelper.ThongBao("Xóa phường thành công.");
-				TaiDuLieu();
-				XoaTrang();
-			} catch(Exception ex) {
-				ex.BaoLoi();
-			}
-		}
 
-		private void btnLamMoi_Click(object sender, EventArgs e) {
-			XoaTrang();
-			TaiDuLieu();
-		}
-
-		private void dgvPhuong_SelectionChanged(object sender, EventArgs e) {
+		private void DgvTaiKhoan_SelectionChanged(object sender, EventArgs e) {
 			if(dgvPhuong.SelectedRows.Count == 0)
 				return;
 			DataGridViewRow row = dgvPhuong.SelectedRows[0];
-			txtMaPhuong.Text = Convert.ToString(row.Cells["MaPhuong"].Value);
-			txtTenPhuong.Text = Convert.ToString(row.Cells["TenPhuong"].Value);
-			txtDienThoai.Text = Convert.ToString(row.Cells["DienThoai"].Value);
-			txtDiaChi.Text = Convert.ToString(row.Cells["DiaChi"].Value);
-			txtGhiChu.Text = Convert.ToString(row.Cells["GhiChu"].Value);
-			txtMaPhuong.Enabled = false;
+			txtTenDangNhap.NapTextBox(row.Cells["TenDangNhap"]);
+			txtMatKhau.NapTextBox(row.Cells["MatKhau"]);
+			txtHoTen.NapTextBox(row.Cells["HoTen"]);
+			txtViTri.NapTextBox(row.Cells["ViTri"]);
+			cboQuyen.ChonTheoCell(row.Cells["Quyen"]);
+			txtDienThoai.NapTextBox(row.Cells["DienThoai"]);
+			txtTenDangNhap.Enabled = false;
 			CapNhatTrangThaiNutBam(true);
 		}
 

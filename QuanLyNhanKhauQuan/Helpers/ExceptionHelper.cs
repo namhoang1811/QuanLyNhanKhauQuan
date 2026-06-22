@@ -6,11 +6,7 @@ using System.Windows.Forms;
 namespace QuanLyNhanKhauQuan {
 	internal static class ExceptionHelper {
 		public static void BaoLoi(this Exception exception) {
-			MessageBox.Show(
-					LayThongBaoLoi(exception),
-					"Lỗi",
-					MessageBoxButtons.OK,
-					MessageBoxIcon.Error);
+			MessageBox.Show(LayThongBaoLoi(exception), "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
 		}
 
 		public static string LayThongBaoLoi(this Exception exception) {

@@ -171,35 +171,17 @@ namespace QuanLyNhanKhauQuan {
 			txtMaNghiepVu.Focus();
 		}
 
-		private void ChonComboBoxTheoText(ComboBox comboBox, string text) {
-			for(int i = 0; i < comboBox.Items.Count; i++) {
-				if(comboBox.GetItemText(comboBox.Items[i]) == text) {
-					comboBox.SelectedIndex = i;
-					return;
-				}
-			}
-
-			comboBox.SelectedIndex = -1;
-		}
-
 		private void dgvNghiepVu_CellClick(object sender, DataGridViewCellEventArgs e) {
 			if(e.RowIndex < 0) {
 				return;
 			}
-
 			DataGridViewRow row = dgvNghiepVu.Rows[e.RowIndex];
-
 			txtMaNghiepVu.Text = Convert.ToString(row.Cells["MaNghiepVu"].Value);
 			cboNhanKhau.Text = Convert.ToString(row.Cells["HoTenChuHo"].Value);
-
-			ChonComboBoxTheoText(
-					cboLoaiNghiepVu,
-					Convert.ToString(row.Cells["LoaiNghiepVu"].Value));
-
+			cboLoaiNghiepVu.ChonTheoCell(row.Cells["LoaiNghiepVu"]);
 			if(row.Cells["NgayThucHien"].Value != null) {
 				dtpNgayThucHien.Value = Convert.ToDateTime(row.Cells["NgayThucHien"].Value);
 			}
-
 			txtNoiDung.Text = Convert.ToString(row.Cells["NoiDung"].Value);
 			txtGhiChu.Text = Convert.ToString(row.Cells["GhiChu"].Value);
 		}

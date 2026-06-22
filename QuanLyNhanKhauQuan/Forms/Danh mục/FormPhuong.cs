@@ -75,21 +75,7 @@ namespace QuanLyNhanKhauQuan {
 				ex.BaoLoi();
 			}
 		}
-		private void txtTimKiem_TextChanged(object sender, EventArgs e) {
-			var dt = dgvPhuong.DataSource as DataTable;
-			if(dt != null) {
-				string tuKhoa = txtTimKiem.Text.Trim();
-				// 2. Nếu ô tìm kiếm trống, xóa bộ lọc để hiện lại toàn bộ danh sách
-				if(string.IsNullOrEmpty(tuKhoa)) {
-					dt.DefaultView.RowFilter = string.Empty;
-				} else {
-					// 3. Sử dụng cú pháp tương tự mệnh đề WHERE trong SQL để lọc
-					// Lọc tương đối (LIKE) trên cả 2 cột: Mã Phường và Tên Phường
-					// Lưu ý: Cú pháp RowFilter không phân biệt chữ hoa chữ thường
-					dt.DefaultView.RowFilter = $"MaPhuong LIKE '%{tuKhoa}%' OR TenPhuong LIKE '%{tuKhoa}%'";
-				}
-			}
-		}
+
 		private void btnXoa_Click(object sender, EventArgs e) {
 			try {
 				if(!txtMaPhuong.KiemTraTrong("mã phường cần xóa"))
@@ -108,6 +94,22 @@ namespace QuanLyNhanKhauQuan {
 		private void btnLamMoi_Click(object sender, EventArgs e) {
 			XoaTrang();
 			TaiDuLieu();
+		}
+
+		private void txtTimKiem_TextChanged(object sender, EventArgs e) {
+			var dt = dgvPhuong.DataSource as DataTable;
+			if(dt != null) {
+				string tuKhoa = txtTimKiem.Text.Trim();
+				// 2. Nếu ô tìm kiếm trống, xóa bộ lọc để hiện lại toàn bộ danh sách
+				if(string.IsNullOrEmpty(tuKhoa)) {
+					dt.DefaultView.RowFilter = string.Empty;
+				} else {
+					// 3. Sử dụng cú pháp tương tự mệnh đề WHERE trong SQL để lọc
+					// Lọc tương đối (LIKE) trên cả 2 cột: Mã Phường và Tên Phường
+					// Lưu ý: Cú pháp RowFilter không phân biệt chữ hoa chữ thường
+					dt.DefaultView.RowFilter = $"MaPhuong LIKE '%{tuKhoa}%' OR TenPhuong LIKE '%{tuKhoa}%'";
+				}
+			}
 		}
 
 		private void dgvPhuong_SelectionChanged(object sender, EventArgs e) {
