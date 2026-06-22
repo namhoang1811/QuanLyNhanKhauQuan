@@ -35,16 +35,11 @@ namespace QuanLyNhanKhauQuan {
 		}
 
 		private bool KiemTraDuLieu(bool isCreate) {
-			if(!txtTenDangNhap.KiemTraTrong("Tên đăng nhập"))
-				return false;
-			if(isCreate && !txtMatKhau.KiemTraTrong("Mật khẩu"))
-				return false;
-			if(!txtHoTen.KiemTraTrong("Họ tên"))
-				return false;
-			if(!txtViTri.KiemTraTrong("Vị trí"))
-				return false;
-			if(!cboQuyen.KiemTraChon("Quyền"))
-				return false;
+			if(!txtTenDangNhap.KiemTraTrong("Tên đăng nhập")) return false;
+			if(isCreate && !txtMatKhau.KiemTraTrong("Mật khẩu")) return false;
+			if(!txtHoTen.KiemTraTrong("Họ tên")) return false;
+			if(!txtViTri.KiemTraTrong("Vị trí")) return false;
+			if(!cboQuyen.KiemTraChon("Quyền")) return false;
 			return true;
 		}
 
@@ -101,8 +96,7 @@ namespace QuanLyNhanKhauQuan {
 		}
 		private void BtnXoa_Click(object sender, EventArgs e) {
 			try {
-				if(!txtTenDangNhap.KiemTraTrong("tên đăng nhập cần xóa"))
-					return;
+				if(!txtTenDangNhap.KiemTraTrong("tên đăng nhập cần xóa")) return;
 				Db.ThucThiSP("sp_TaiKhoan_Xoa", new SqlParameter("@TenDangNhap", txtTenDangNhap.Text.Trim()));
 				MessageBoxHelper.ThongBao("Xóa tài khoản thành công.");
 				TaiDuLieu();
@@ -134,8 +128,7 @@ namespace QuanLyNhanKhauQuan {
 		}
 
 		private void DgvTaiKhoan_SelectionChanged(object sender, EventArgs e) {
-			if(dgvPhuong.SelectedRows.Count == 0)
-				return;
+			if(dgvPhuong.SelectedRows.Count == 0) return;
 			DataGridViewRow row = dgvPhuong.SelectedRows[0];
 			txtTenDangNhap.NapTextBox(row.Cells["TenDangNhap"]);
 			txtMatKhau.Text = null;

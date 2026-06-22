@@ -1,7 +1,5 @@
 using System;
 using System.Data.SqlClient;
-using System.Security.Cryptography;
-using System.Text;
 using System.Windows.Forms;
 
 namespace QuanLyNhanKhauQuan {
@@ -16,10 +14,8 @@ namespace QuanLyNhanKhauQuan {
 
 		private void BtnDangNhap_Click(object sender, EventArgs e) {
 			try {
-				if(!txtTenDangNhap.KiemTraTrong("tên đăng nhập"))
-					return;
-				if(!txtTenDangNhap.KiemTraTrong("mật khẩu"))
-					return;
+				if(!txtTenDangNhap.KiemTraTrong("tên đăng nhập")) return;
+				if(!txtTenDangNhap.KiemTraTrong("mật khẩu")) return;
 				var taiKhoan = txtTenDangNhap.Text.Trim();
 				var matKhauDaHash = Db.HashPasswordSHA512ToBytes(txtMatKhau.Text);
 				var ketQua = Db.LayGiaTri(

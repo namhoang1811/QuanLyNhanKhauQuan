@@ -75,20 +75,8 @@ namespace QuanLyNhanKhauQuan {
 				return false;
 			}
 
-			if(dtpNgayThucHien.Value.Date > DateTime.Today) {
-				MessageBox.Show(
-						"Ngày thực hiện không được lớn hơn ngày hiện tại.",
-						"Dữ liệu không hợp lệ",
-						MessageBoxButtons.OK,
-						MessageBoxIcon.Warning);
-
-				dtpNgayThucHien.Focus();
-				return false;
-			}
-
-			if(!txtNoiDung.KiemTraTrong("nội dung nghiệp vụ")) {
-				return false;
-			}
+			if(!dtpNgayThucHien.KiemTraNgayKhongVuotHienTai("Ngày thực hiện"))  return false;
+			if(!txtNoiDung.KiemTraTrong("nội dung nghiệp vụ")) return false;
 
 			return true;
 		}
