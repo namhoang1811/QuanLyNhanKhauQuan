@@ -50,7 +50,7 @@ namespace QuanLyNhanKhauQuan {
 					return;
 				}
 
-				Db.ThongBao("Tìm kiếm hoàn tất. Có " + dgvKetQua.Rows.Count + " dòng dữ liệu.");
+				MessageBoxHelper.ThongBao("Tìm kiếm hoàn tất. Có " + dgvKetQua.Rows.Count + " dòng dữ liệu.");
 			} catch(Exception ex) {
 				ex.BaoLoi();
 			}

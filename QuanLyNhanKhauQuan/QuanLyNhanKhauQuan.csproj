@@ -43,10 +43,12 @@
       <DependentUpon>FormMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ComboBoxHelper.cs" />
+    <Compile Include="Helpers\DateTimePickerHelper.cs" />
     <Compile Include="Helpers\ExceptionHelper.cs" />
+    <Compile Include="Helpers\MessageBoxHelper.cs" />
     <Compile Include="Helpers\TextBoxHelper.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Db.cs" />
+    <Compile Include="Database\Db.cs" />
     <Compile Include="FormDangNhap.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,6 +120,9 @@
     <EmbeddedResource Include="FormToDanPho.resx">
       <DependentUpon>FormToDanPho.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Database\CSDL.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

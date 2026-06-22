@@ -28,7 +28,7 @@ namespace QuanLyNhanKhauQuan {
 
 		private void btnThongKe_Click(object sender, EventArgs e) {
 			TaiThongKe();
-			Db.ThongBao("Đã tải thống kê mới nhất.");
+			MessageBoxHelper.ThongBao("Đã tải thống kê mới nhất.");
 		}
 	}
 }
