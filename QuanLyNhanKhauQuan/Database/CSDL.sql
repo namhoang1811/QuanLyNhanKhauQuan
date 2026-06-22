@@ -155,6 +155,11 @@ AS BEGIN
 		UPDATE tblTaiKhoan SET MatKhau = HASHBYTES('SHA2_512', @MatKhau), HoTen = @HoTen, @ViTri= @ViTri, Quyen= @Quyen, DienThoai= @DienThoai, NguoiSua = @NguoiSua, NgaySua = GETDATE() WHERE TenDangNhap = @TenDangNhap;
 	END
 GO
+CREATE OR ALTER PROCEDURE sp_TaiKhoan_DoiMatKhau @TenDangNhap VARCHAR(50), @MatKhau VARCHAR(64)
+AS BEGIN 
+		UPDATE tblTaiKhoan SET MatKhau = HASHBYTES('SHA2_512', @MatKhau), NguoiSua = @TenDangNhap, NgaySua = GETDATE() WHERE TenDangNhap = @TenDangNhap;
+	END
+GO
 CREATE PROCEDURE sp_TaiKhoan_Xoa @TenDangNhap VARCHAR(50)
 AS BEGIN 
 		DELETE FROM tblTaiKhoan WHERE TenDangNhap = @TenDangNhap; 

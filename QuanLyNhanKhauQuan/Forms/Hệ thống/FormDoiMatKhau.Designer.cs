@@ -38,7 +38,7 @@ namespace QuanLyNhanKhauQuan {
             // 
             // lblMatKhauCu
             // 
-            this.lblMatKhauCu.Location = new System.Drawing.Point(197, 119);
+            this.lblMatKhauCu.Location = new System.Drawing.Point(197, 122);
             this.lblMatKhauCu.Name = "lblMatKhauCu";
             this.lblMatKhauCu.Size = new System.Drawing.Size(90, 25);
             this.lblMatKhauCu.TabIndex = 4;
@@ -46,7 +46,7 @@ namespace QuanLyNhanKhauQuan {
             // 
             // lblMatKhauMoi
             // 
-            this.lblMatKhauMoi.Location = new System.Drawing.Point(197, 159);
+            this.lblMatKhauMoi.Location = new System.Drawing.Point(197, 162);
             this.lblMatKhauMoi.Name = "lblMatKhauMoi";
             this.lblMatKhauMoi.Size = new System.Drawing.Size(104, 25);
             this.lblMatKhauMoi.TabIndex = 5;
@@ -79,7 +79,7 @@ namespace QuanLyNhanKhauQuan {
             // 
             // lblDienThoai
             // 
-            this.lblDienThoai.Location = new System.Drawing.Point(197, 199);
+            this.lblDienThoai.Location = new System.Drawing.Point(197, 202);
             this.lblDienThoai.Name = "lblDienThoai";
             this.lblDienThoai.Size = new System.Drawing.Size(131, 25);
             this.lblDienThoai.TabIndex = 18;
