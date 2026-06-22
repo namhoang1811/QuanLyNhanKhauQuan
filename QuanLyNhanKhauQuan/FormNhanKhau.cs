@@ -213,7 +213,7 @@ namespace QuanLyNhanKhauQuan {
 				TaiDuLieu();
 				XoaTrang();
 			} catch(Exception ex) {
-				Db.BaoLoi(ex);
+				ex.BaoLoi();
 			}
 		}
 
@@ -245,7 +245,7 @@ namespace QuanLyNhanKhauQuan {
 
 				TaiDuLieu();
 			} catch(Exception ex) {
-				Db.BaoLoi(ex);
+				ex.BaoLoi();
 			}
 		}
 
@@ -278,7 +278,7 @@ namespace QuanLyNhanKhauQuan {
 				TaiDuLieu();
 				XoaTrang();
 			} catch(Exception ex) {
-				Db.BaoLoi(ex);
+				ex.BaoLoi();
 			}
 		}
 

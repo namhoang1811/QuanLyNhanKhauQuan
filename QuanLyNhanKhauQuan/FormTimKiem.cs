@@ -52,7 +52,7 @@ namespace QuanLyNhanKhauQuan {
 
 				Db.ThongBao("Tìm kiếm hoàn tất. Có " + dgvKetQua.Rows.Count + " dòng dữ liệu.");
 			} catch(Exception ex) {
-				Db.BaoLoi(ex);
+				ex.BaoLoi();
 			}
 		}
 
@@ -64,7 +64,7 @@ namespace QuanLyNhanKhauQuan {
 
 				DinhDangBangKetQua();
 			} catch(Exception ex) {
-				Db.BaoLoi(ex);
+				ex.BaoLoi();
 			}
 		}
 
@@ -103,7 +103,7 @@ namespace QuanLyNhanKhauQuan {
 				printPreviewDialog.StartPosition = FormStartPosition.CenterScreen;
 				printPreviewDialog.ShowDialog();
 			} catch(Exception ex) {
-				Db.BaoLoi(ex);
+				ex.BaoLoi();
 			}
 		}
 

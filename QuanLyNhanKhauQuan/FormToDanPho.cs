@@ -92,9 +92,9 @@ namespace QuanLyNhanKhauQuan {
 				TaiDuLieu();
 				XoaTrang();
 			} catch(SqlException ex) {
-				Db.BaoLoi(ex);
+				ex.BaoLoi();
 			} catch(Exception ex) {
-				Db.BaoLoi(ex);
+				ex.BaoLoi();
 			}
 		}
 
@@ -122,9 +122,9 @@ namespace QuanLyNhanKhauQuan {
 
 				TaiDuLieu();
 			} catch(SqlException ex) {
-				Db.BaoLoi(ex);
+				ex.BaoLoi();
 			} catch(Exception ex) {
-				Db.BaoLoi(ex);
+				ex.BaoLoi();
 			}
 		}
 
@@ -157,9 +157,9 @@ namespace QuanLyNhanKhauQuan {
 				TaiDuLieu();
 				XoaTrang();
 			} catch(SqlException ex) {
-				Db.BaoLoi(ex);
+				ex.BaoLoi();
 			} catch(Exception ex) {
-				Db.BaoLoi(ex);
+				ex.BaoLoi();
 			}
 		}
 

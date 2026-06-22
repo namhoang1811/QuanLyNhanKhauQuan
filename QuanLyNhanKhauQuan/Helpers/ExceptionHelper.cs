@@ -12,7 +12,8 @@ namespace QuanLyNhanKhauQuan {
 					MessageBoxButtons.OK,
 					MessageBoxIcon.Error);
 		}
-		public static string LayThongBaoLoi(Exception exception) {
+
+		public static string LayThongBaoLoi(this Exception exception) {
 			SqlException sqlException = exception as SqlException;
 
 			if(sqlException == null && exception.InnerException != null) {

@@ -147,9 +147,9 @@ namespace QuanLyNhanKhauQuan {
 				TaiDuLieu();
 				LamMoi();
 			} catch(SqlException ex) {
-				Db.BaoLoi(ex);
+				ex.BaoLoi();
 			} catch(Exception ex) {
-				Db.BaoLoi(ex);
+				ex.BaoLoi();
 			}
 		}
 

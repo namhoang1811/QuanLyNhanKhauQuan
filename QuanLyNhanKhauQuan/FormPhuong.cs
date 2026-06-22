@@ -60,7 +60,7 @@ namespace QuanLyNhanKhauQuan {
 				TaiDuLieu();
 				XoaTrang();
 			} catch(Exception ex) {
-				Db.BaoLoi(ex);
+				ex.BaoLoi();
 			}
 		}
 
@@ -72,7 +72,7 @@ namespace QuanLyNhanKhauQuan {
 				Db.ThongBao("Cập nhật phường thành công.");
 				TaiDuLieu();
 			} catch(Exception ex) {
-				Db.BaoLoi(ex);
+				ex.BaoLoi();
 			}
 		}
 		private void txtTimKiem_TextChanged(object sender, EventArgs e) {
@@ -101,7 +101,7 @@ namespace QuanLyNhanKhauQuan {
 				TaiDuLieu();
 				XoaTrang();
 			} catch(Exception ex) {
-				Db.BaoLoi(ex);
+				ex.BaoLoi();
 			}
 		}
 
