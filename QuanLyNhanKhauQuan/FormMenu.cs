@@ -62,5 +62,23 @@ namespace QuanLyNhanKhauQuan {
 			MoFormCon(typeof(FormToDanPho));
 		}
 
+		// Quản lý Nhân khẩu
+		private void MenuNhaKhauHoKhau_Click(object sender, EventArgs e) {
+			MoFormCon(typeof(FormNhanKhau));
+		}
+		private void MenuNguoiPhuThuoc_Click(object sender, EventArgs e) {
+			MoFormCon(typeof(FormNguoiPhuThuoc));
+		}
+		// Nghiệp vụ
+
+		private void MenuNghiepVu_Click(object sender, EventArgs e) {
+			MoFormCon(typeof(FormNghiepVu));
+		}
+
+		private void MenuThongTin_Click(object sender, EventArgs e) {
+
+		}
+		// Báo cáo
+
 	}
 }

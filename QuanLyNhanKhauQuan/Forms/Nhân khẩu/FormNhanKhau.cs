@@ -68,16 +68,6 @@ namespace QuanLyNhanKhauQuan {
 			return Regex.IsMatch(value, @"^\d+$");
 		}
 
-		private void ChonComboBoxTheoText(ComboBox comboBox, string text) {
-			for(int i = 0; i < comboBox.Items.Count; i++) {
-				if(comboBox.GetItemText(comboBox.Items[i]) == text) {
-					comboBox.SelectedIndex = i;
-					return;
-				}
-			}
-
-			comboBox.SelectedIndex = -1;
-		}
 
 		private bool KiemTraDuLieu() {
 			if(!txtMaNhanKhau.KiemTraTrong("mã nhân khẩu")) {
@@ -314,9 +304,7 @@ namespace QuanLyNhanKhauQuan {
 
 			cboToDanPho.Text = Convert.ToString(row.Cells["TenToDanPho"].Value);
 
-			ChonComboBoxTheoText(
-					cboTinhTrang,
-					Convert.ToString(row.Cells["TinhTrang"].Value));
+			cboTinhTrang.NapComboBox(row.Cells["TinhTrang"]);
 
 			txtMaNhanKhau.Enabled = false;
 		}
