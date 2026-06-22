@@ -37,9 +37,26 @@ namespace QuanLyNhanKhauQuan {
 			MoFormCon(typeof(FormPhuong));
 		}
 
-		private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e) {
-
+		private void MenuToDanPho_Click(object sender, EventArgs e) {
+			MoFormCon(typeof(FormToDanPho));
 		}
 
+		private void MenuThoat_Click(object sender, EventArgs e) {
+			var result = MessageBox.Show("Bạn có chắc chắn muốn Thoát hệ thống?",
+																	"Xác nhận",
+																	MessageBoxButtons.YesNo,
+																	MessageBoxIcon.Question);
+			if(result == DialogResult.Yes) 
+				Application.Exit();
+		}
+
+		private void menuDangXuat_Click(object sender, EventArgs e) {
+			var result = MessageBox.Show("Bạn có chắc chắn muốn Đăng xuất hệ thống?",
+																	"Xác nhận",
+																	MessageBoxButtons.YesNo,
+																	MessageBoxIcon.Question);
+			if(result == DialogResult.Yes)
+				Application.Restart();
+		}
 	}
 }
