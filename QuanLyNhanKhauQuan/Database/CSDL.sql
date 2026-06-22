@@ -1,4 +1,4 @@
-IF DB_ID(N'QuanLyNhanKhauQuan') IS NOT NULL
+IF DB_ID(N'QuanLyNhanKhauQuan') IS NOT NULL 
 BEGIN
     ALTER DATABASE QuanLyNhanKhauQuan SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
     DROP DATABASE QuanLyNhanKhauQuan;
@@ -14,10 +14,14 @@ GO
 CREATE TABLE tblTaiKhoan
 (
     TenDangNhap VARCHAR(50) NOT NULL PRIMARY KEY,
-    MatKhau VARBINARY(64) NOT NULL, -- SHA2_512 64bit
+    MatKhau VARBINARY(64) NOT NULL, -- SHA2_512
     HoTen NVARCHAR(100) NOT NULL,
     Quyen NVARCHAR(30) NOT NULL DEFAULT N'Admin',
-    TrangThai BIT NOT NULL DEFAULT 1
+    TrangThai BIT NOT NULL DEFAULT 1,
+    NguoiTao VARCHAR(50) NOT NULL,
+    NguoiSua VARCHAR(50) NOT NULL,
+    NgayTao DateTime NOT NULL DEFAULT GETDATE(),
+    NgaySua DateTime NOT NULL DEFAULT GETDATE(),
 );
 GO
 
@@ -28,6 +32,10 @@ CREATE TABLE tblPhuong
     DienThoai VARCHAR(11) NOT NULL,
     DiaChi NVARCHAR(200) NOT NULL,
     GhiChu NVARCHAR(200) NULL,
+    NguoiTao VARCHAR(50) NOT NULL,
+    NguoiSua VARCHAR(50) NOT NULL,
+    NgayTao DateTime NOT NULL DEFAULT GETDATE(),
+    NgaySua DateTime NOT NULL DEFAULT GETDATE(),
     CONSTRAINT CK_tblPhuong_DienThoai CHECK (DienThoai NOT LIKE '%[^0-9]%' AND LEN(DienThoai) BETWEEN 9 AND 11)
 );
 GO
@@ -41,6 +49,10 @@ CREATE TABLE tblToDanPho
     ToTruong NVARCHAR(100) NOT NULL,
     DienThoai VARCHAR(11) NOT NULL,
     GhiChu NVARCHAR(200) NULL,
+    NguoiTao VARCHAR(50) NOT NULL,
+    NguoiSua VARCHAR(50) NOT NULL,
+    NgayTao DateTime NOT NULL DEFAULT GETDATE(),
+    NgaySua DateTime NOT NULL DEFAULT GETDATE(),
     CONSTRAINT FK_tblToDanPho_tblPhuong FOREIGN KEY (MaPhuong) REFERENCES tblPhuong(MaPhuong),
     CONSTRAINT CK_tblToDanPho_DienThoai CHECK (DienThoai NOT LIKE '%[^0-9]%' AND LEN(DienThoai) BETWEEN 9 AND 11)
 );
@@ -49,47 +61,59 @@ GO
 CREATE TABLE tblHoKhau
 (
     MaHoKhau VARCHAR(20) NOT NULL PRIMARY KEY,
-    DiaChi NVARCHAR(200) NOT NULL,
     MaToDanPho VARCHAR(20) NOT NULL,
+    MaPhuong VARCHAR(20) NOT NULL,
+    DiaChi NVARCHAR(200) NOT NULL,
     GhiChu NVARCHAR(200) NULL,
-    CONSTRAINT FK_tblHoKhau_tblToDanPho FOREIGN KEY (MaToDanPho) REFERENCES tblToDanPho(MaToDanPho)
+    NguoiTao VARCHAR(50) NOT NULL,
+    NguoiSua VARCHAR(50) NOT NULL,
+    NgayTao DateTime NOT NULL DEFAULT GETDATE(),
+    NgaySua DateTime NOT NULL DEFAULT GETDATE(),
+    CONSTRAINT FK_tblHoKhau_tblToDanPho FOREIGN KEY (MaToDanPho) REFERENCES tblToDanPho(MaToDanPho),
+    CONSTRAINT FK_tblHoKhau_tblPhuong FOREIGN KEY (MaPhuong) REFERENCES tblPhuong(MaPhuong)
+
 );
-GO
 
 CREATE TABLE tblNhanKhau
 (
     MaNhanKhau VARCHAR(20) NOT NULL PRIMARY KEY,
-    HoTenChuHo NVARCHAR(100) NOT NULL,
+    HoTen NVARCHAR(100) NOT NULL,
     NgaySinh DATE NOT NULL,
     GioiTinh NVARCHAR(5) NOT NULL,
     CCCD VARCHAR(12) NOT NULL UNIQUE,
     NgheNghiep NVARCHAR(100) NOT NULL,
     NoiLamViec NVARCHAR(150) NOT NULL,
-    DiaChi NVARCHAR(200) NOT NULL,
     DienThoai VARCHAR(11) NOT NULL,
     MaHoKhau VARCHAR(20) NOT NULL,
-    TinhTrang NVARCHAR(30) NOT NULL DEFAULT N'Đang sinh sống',
-    GhiChu NVARCHAR(200) NULL,
+    QuanHeChuHo NVARCHAR(30) NOT NULL,
+    TrangThai NVARCHAR(30) NOT NULL DEFAULT N'Đang sống',
+    NguoiTao VARCHAR(50) NOT NULL,
+    NguoiSua VARCHAR(50) NOT NULL,
+    NgayTao DateTime NOT NULL DEFAULT GETDATE(),
+    NgaySua DateTime NOT NULL DEFAULT GETDATE(),
     CONSTRAINT FK_tblNhanKhau_tblHoKhau FOREIGN KEY (MaHoKhau) REFERENCES tblHoKhau(MaHoKhau),
     CONSTRAINT CK_tblNhanKhau_GioiTinh CHECK (GioiTinh IN (N'Nam', N'Nữ', N'Khác')),
+    CONSTRAINT CK_tblNhanKhau_TrangThai CHECK (TrangThai IN (N'Đang sống', N'Đã chết')),
     CONSTRAINT CK_tblNhanKhau_DienThoai CHECK (DienThoai NOT LIKE '%[^0-9]%' AND LEN(DienThoai) BETWEEN 9 AND 11)
 );
 
-CREATE TABLE tblNghiepVuHoKhau
+CREATE TABLE tblNhatKyNghiepVu
 (
     MaNghiepVu VARCHAR(20) NOT NULL PRIMARY KEY,
     MaNhanKhau VARCHAR(20) NOT NULL,
     LoaiNghiepVu NVARCHAR(50) NOT NULL,
-    NgayThucHien DATE NOT NULL,
     NoiDung NVARCHAR(300) NOT NULL,
     GhiChu NVARCHAR(200) NULL,
-    CONSTRAINT FK_tblNghiepVuHoKhau_tblNhanKhau FOREIGN KEY (MaNhanKhau) REFERENCES tblNhanKhau(MaNhanKhau),
-    CONSTRAINT CK_tblNghiepVuHoKhau_Loai CHECK (LoaiNghiepVu IN (N'Tách hộ', N'Nhập hộ', N'Chuyển đi', N'Nhập mới sinh', N'Báo tử')),
-    CONSTRAINT CK_tblNghiepVuHoKhau_Ngay CHECK (NgayThucHien <= CONVERT(DATE, GETDATE()))
+    NguoiTao VARCHAR(50) NOT NULL,
+    NguoiSua VARCHAR(50) NOT NULL,
+    NgayTao DateTime NOT NULL DEFAULT GETDATE(),
+    NgaySua DateTime NOT NULL DEFAULT GETDATE(),
+    CONSTRAINT FK_tblNhatKyNghiepVu_tblNhanKhau FOREIGN KEY (MaNhanKhau) REFERENCES tblNhanKhau(MaNhanKhau),
+    CONSTRAINT CK_tblNhatKyNghiepVu_Loai CHECK (LoaiNghiepVu IN (N'Tách hộ', N'Nhập hộ', N'Chuyển đi', N'Nhập mới sinh', N'Báo tử'))
 );
 GO
 
-INSERT INTO tblTaiKhoan VALUES ('admin', HASHBYTES('SHA2_512', '123'), N'Quản trị viên', N'Admin', 1);
+INSERT INTO TaiKhoan VALUES ('admin', HASHBYTES('SHA2_512', '123'), N'Quản trị viên', N'Admin', 1);
 GO
 
 INSERT INTO tblPhuong VALUES

@@ -51,10 +51,7 @@ namespace QuanLyNhanKhauQuan {
 		}
 
 		private void BtnThoat_Click(object sender, EventArgs e) {
-			var result = MessageBox.Show("Bạn có chắc chắn muốn thoát hệ thống?",
-																	"Xác nhận",
-																	MessageBoxButtons.YesNo,
-																	MessageBoxIcon.Question);
+			var result = MessageBoxHelper.YesNoQuestion("Bạn có chắc chắn muốn thoát hệ thống?");
 			if(result == DialogResult.Yes) {
 				// Lệnh này sẽ đóng tất cả các Form và ngắt hoàn toàn ứng dụng
 				Application.Exit();

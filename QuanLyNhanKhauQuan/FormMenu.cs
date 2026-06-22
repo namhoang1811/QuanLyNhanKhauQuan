@@ -12,7 +12,7 @@ namespace QuanLyNhanKhauQuan {
 		private void FormMenu_Load(object sender, EventArgs e) {
 			// Mở FormPhuong mặc định ngay khi FormMenu vừa tải xong
 			helloUser.Text = $"Xin chào, {tenNguoiDung}";
-			MoFormCon(typeof(FormPhuong));
+			MoFormCon(typeof(FormTaiKhoan));
 		}
 		private void MoFormCon(Type loaiForm) {
 			// 1. Kiểm tra xem Form đã mở trong danh sách MdiChildren chưa
@@ -33,6 +33,22 @@ namespace QuanLyNhanKhauQuan {
 		}
 
 
+		// Hệ thống
+		private void MenuQuanLyTaiKhoan_Click(object sender, EventArgs e) {
+
+		}
+		private void MenuDangXuat_Click(object sender, EventArgs e) {
+			var result = MessageBoxHelper.YesNoQuestion("Bạn có chắc chắn muốn Đăng xuất hệ thống?");
+			if(result == DialogResult.Yes)
+				Application.Restart();
+		}
+		private void MenuThoat_Click(object sender, EventArgs e) {
+			var result = MessageBoxHelper.YesNoQuestion("Bạn có chắc chắn muốn Thoát hệ thống?");
+			if(result == DialogResult.Yes) 
+				Application.Exit();
+		}
+
+		// Quản lý Danh mục
 		private void MenuPhuong_Click(object sender, EventArgs e) {
 			MoFormCon(typeof(FormPhuong));
 		}
@@ -41,22 +57,5 @@ namespace QuanLyNhanKhauQuan {
 			MoFormCon(typeof(FormToDanPho));
 		}
 
-		private void MenuThoat_Click(object sender, EventArgs e) {
-			var result = MessageBox.Show("Bạn có chắc chắn muốn Thoát hệ thống?",
-																	"Xác nhận",
-																	MessageBoxButtons.YesNo,
-																	MessageBoxIcon.Question);
-			if(result == DialogResult.Yes) 
-				Application.Exit();
-		}
-
-		private void menuDangXuat_Click(object sender, EventArgs e) {
-			var result = MessageBox.Show("Bạn có chắc chắn muốn Đăng xuất hệ thống?",
-																	"Xác nhận",
-																	MessageBoxButtons.YesNo,
-																	MessageBoxIcon.Question);
-			if(result == DialogResult.Yes)
-				Application.Restart();
-		}
 	}
 }
