@@ -163,7 +163,7 @@
             this.menuThongTin.Name = "menuThongTin";
             this.menuThongTin.Size = new System.Drawing.Size(71, 20);
             this.menuThongTin.Text = "&Thông tin";
-            this.menuThongTin.Click += new System.EventHandler(this.MenuThongTin_Click);
+            this.menuThongTin.Click += new System.EventHandler(this.menuThongTin_Click);
             // 
             // toolStripMenuItem1
             // 

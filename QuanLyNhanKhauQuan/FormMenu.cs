@@ -75,7 +75,7 @@ namespace QuanLyNhanKhauQuan {
 			MoFormCon(typeof(FormNghiepVu));
 		}
 
-		private void MenuThongTin_Click(object sender, EventArgs e) {
+		private void menuThongTin_Click(object sender, EventArgs e) {
 
 		}
 		// Báo cáo

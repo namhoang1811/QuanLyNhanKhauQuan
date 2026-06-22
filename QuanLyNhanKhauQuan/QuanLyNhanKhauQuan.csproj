@@ -67,12 +67,6 @@
     <Compile Include="Forms\Hệ thống\FormDangNhap.Designer.cs">
       <DependentUpon>FormDangNhap.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormMain.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormMain.Designer.cs">
-      <DependentUpon>FormMain.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Danh mục\FormPhuong.cs">
       <SubType>Form</SubType>
     </Compile>
