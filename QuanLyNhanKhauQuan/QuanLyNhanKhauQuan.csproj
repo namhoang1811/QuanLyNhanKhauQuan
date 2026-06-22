@@ -67,16 +67,16 @@
       <DependentUpon>CRTaiKhoan.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Forms\Hệ thống\FormDoiMatKhau.cs">
+    <Compile Include="Forms\HeThong\FormDoiMatKhau.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Hệ thống\FormDoiMatKhau.Designer.cs">
+    <Compile Include="Forms\HeThong\FormDoiMatKhau.Designer.cs">
       <DependentUpon>FormDoiMatKhau.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Hệ thống\FormTaiKhoan.cs">
+    <Compile Include="Forms\HeThong\FormTaiKhoan.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Hệ thống\FormTaiKhoan.Designer.cs">
+    <Compile Include="Forms\HeThong\FormTaiKhoan.Designer.cs">
       <DependentUpon>FormTaiKhoan.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ComboBoxHelper.cs" />
@@ -86,40 +86,40 @@
     <Compile Include="Helpers\TextBoxHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Database\Db.cs" />
-    <Compile Include="Forms\Hệ thống\FormDangNhap.cs">
+    <Compile Include="Forms\HeThong\FormDangNhap.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Hệ thống\FormDangNhap.Designer.cs">
+    <Compile Include="Forms\HeThong\FormDangNhap.Designer.cs">
       <DependentUpon>FormDangNhap.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Danh mục\FormPhuong.cs">
+    <Compile Include="Forms\DanhMuc\FormPhuong.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Danh mục\FormPhuong.Designer.cs">
+    <Compile Include="Forms\DanhMuc\FormPhuong.Designer.cs">
       <DependentUpon>FormPhuong.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Danh mục\FormToDanPho.cs">
+    <Compile Include="Forms\DanhMuc\FormToDanPho.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Danh mục\FormToDanPho.Designer.cs">
+    <Compile Include="Forms\DanhMuc\FormToDanPho.Designer.cs">
       <DependentUpon>FormToDanPho.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Nhân khẩu\FormNhanKhau.cs">
+    <Compile Include="Forms\NhanKhau\FormNhanKhau.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Nhân khẩu\FormNhanKhau.Designer.cs">
+    <Compile Include="Forms\NhanKhau\FormNhanKhau.Designer.cs">
       <DependentUpon>FormNhanKhau.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Nhân khẩu\FormNguoiPhuThuoc.cs">
+    <Compile Include="Forms\NhanKhau\FormNguoiPhuThuoc.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Nhân khẩu\FormNguoiPhuThuoc.Designer.cs">
+    <Compile Include="Forms\NhanKhau\FormNguoiPhuThuoc.Designer.cs">
       <DependentUpon>FormNguoiPhuThuoc.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Nghiệp vụ\FormNghiepVu.cs">
+    <Compile Include="Forms\NghiepVu\FormNghiepVu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Nghiệp vụ\FormNghiepVu.Designer.cs">
+    <Compile Include="Forms\NghiepVu\FormNghiepVu.Designer.cs">
       <DependentUpon>FormNghiepVu.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\BaoCao\FormTimKiem.cs">
@@ -151,22 +151,22 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CRTaiKhoan.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Hệ thống\FormDangNhap.resx">
+    <EmbeddedResource Include="Forms\HeThong\FormDangNhap.resx">
       <DependentUpon>FormDangNhap.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormMenu.resx">
       <DependentUpon>FormMenu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Danh mục\FormPhuong.resx">
+    <EmbeddedResource Include="Forms\DanhMuc\FormPhuong.resx">
       <DependentUpon>FormPhuong.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Danh mục\FormToDanPho.resx">
+    <EmbeddedResource Include="Forms\DanhMuc\FormToDanPho.resx">
       <DependentUpon>FormToDanPho.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Hệ thống\FormDoiMatKhau.resx">
+    <EmbeddedResource Include="Forms\HeThong\FormDoiMatKhau.resx">
       <DependentUpon>FormDoiMatKhau.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Hệ thống\FormTaiKhoan.resx">
+    <EmbeddedResource Include="Forms\HeThong\FormTaiKhoan.resx">
       <DependentUpon>FormTaiKhoan.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
@@ -174,7 +174,7 @@
     <Content Include="Database\CSDL.sql" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Forms\Thông tin\" />
+    <Folder Include="Forms\ThongTin\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
