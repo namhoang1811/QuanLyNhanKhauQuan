@@ -2,243 +2,188 @@ using System;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 
-namespace QuanLyNhanKhauQuan
-{
-    public partial class FormToDanPho : Form
-    {
-        public FormToDanPho()
-        {
-            InitializeComponent();
-        }
+namespace QuanLyNhanKhauQuan {
+	public partial class FormToDanPho : Form {
+		public FormToDanPho() {
+			InitializeComponent();
+		}
 
-        private void FormToDanPho_Load(object sender, EventArgs e)
-        {
-            Db.NapComboBox(
-                cboPhuong,
-                "SELECT MaPhuong, TenPhuong FROM tblPhuong ORDER BY TenPhuong",
-                "TenPhuong",
-                "MaPhuong");
+		private void FormToDanPho_Load(object sender, EventArgs e) {
+			cboPhuong.NapComboBox(
+					"SELECT MaPhuong, TenPhuong FROM tblPhuong ORDER BY TenPhuong",
+					"TenPhuong",
+					"MaPhuong");
 
-            TaiDuLieu();
-        }
+			TaiDuLieu();
+		}
 
-        private void TaiDuLieu()
-        {
-            dgvToDanPho.DataSource = Db.LayDuLieu(
-                "SELECT " +
-                "t.MaToDanPho, " +
-                "t.TenToDanPho, " +
-                "p.TenPhuong, " +
-                "t.CSKV, " +
-                "t.ToTruong, " +
-                "t.DienThoai, " +
-                "t.GhiChu " +
-                "FROM tblToDanPho t " +
-                "INNER JOIN tblPhuong p ON t.MaPhuong = p.MaPhuong " +
-                "ORDER BY t.MaToDanPho");
-        }
+		private void TaiDuLieu() {
+			dgvToDanPho.DataSource = Db.LayDuLieu(
+					"SELECT " +
+					"t.MaToDanPho, " +
+					"t.TenToDanPho, " +
+					"p.TenPhuong, " +
+					"t.CSKV, " +
+					"t.ToTruong, " +
+					"t.DienThoai, " +
+					"t.GhiChu " +
+					"FROM tblToDanPho t " +
+					"INNER JOIN tblPhuong p ON t.MaPhuong = p.MaPhuong " +
+					"ORDER BY t.MaToDanPho");
+		}
 
-        private bool KiemTraDuLieu()
-        {
-            if (!Db.KiemTraTrong(txtMaToDanPho, "mã tổ dân phố"))
-            {
-                return false;
-            }
+		private bool KiemTraDuLieu() {
+			if(!txtMaToDanPho.KiemTraTrong("mã tổ dân phố")) 
+				return false;
+			if(!txtTenToDanPho.KiemTraTrong("tên tổ dân phố")) 
+				return false;
+			if(!cboPhuong.KiemTraChon("phường")) 
+				return false;
+			if(!txtCSKV.KiemTraTrong("cảnh sát khu vực")) 
+				return false;
+			if(!txtToTruong.KiemTraTrong("tổ trưởng")) 
+				return false;
+			if(!txtDienThoai.KiemTraTrong("điện thoại")) 
+				return false;
+			if(!txtDienThoai.KiemTraSoDienThoai()) 
+				return false;
+			return true;
+		}
 
-            if (!Db.KiemTraTrong(txtTenToDanPho, "tên tổ dân phố"))
-            {
-                return false;
-            }
+		private void XoaTrang() {
+			txtMaToDanPho.Clear();
+			txtTenToDanPho.Clear();
 
-            if (!Db.KiemTraChon(cboPhuong, "phường"))
-            {
-                return false;
-            }
+			if(cboPhuong.Items.Count > 0) {
+				cboPhuong.SelectedIndex = -1;
+			}
 
-            if (!Db.KiemTraTrong(txtCSKV, "cảnh sát khu vực"))
-            {
-                return false;
-            }
+			txtCSKV.Clear();
+			txtToTruong.Clear();
+			txtDienThoai.Clear();
+			txtGhiChu.Clear();
 
-            if (!Db.KiemTraTrong(txtToTruong, "tổ trưởng"))
-            {
-                return false;
-            }
+			txtMaToDanPho.Enabled = true;
+			txtMaToDanPho.Focus();
+		}
 
-            if (!Db.KiemTraTrong(txtDienThoai, "điện thoại"))
-            {
-                return false;
-            }
+		private void btnThem_Click(object sender, EventArgs e) {
+			try {
+				if(!KiemTraDuLieu()) {
+					return;
+				}
 
-            if (!Db.KiemTraSoDienThoai(txtDienThoai))
-            {
-                return false;
-            }
+				Db.ThucThiSP(
+						"sp_ToDanPho_Them",
+						new SqlParameter("@MaToDanPho", txtMaToDanPho.Text.Trim()),
+						new SqlParameter("@TenToDanPho", txtTenToDanPho.Text.Trim()),
+						new SqlParameter("@MaPhuong", cboPhuong.SelectedValue.ToString()),
+						new SqlParameter("@CSKV", txtCSKV.Text.Trim()),
+						new SqlParameter("@ToTruong", txtToTruong.Text.Trim()),
+						new SqlParameter("@DienThoai", txtDienThoai.Text.Trim()),
+						new SqlParameter("@GhiChu", txtGhiChu.Text.Trim()));
 
-            return true;
-        }
+				MessageBox.Show(
+						"Thêm tổ dân phố thành công.",
+						"Thành công",
+						MessageBoxButtons.OK,
+						MessageBoxIcon.Information);
 
-        private void XoaTrang()
-        {
-            txtMaToDanPho.Clear();
-            txtTenToDanPho.Clear();
+				TaiDuLieu();
+				XoaTrang();
+			} catch(SqlException ex) {
+				Db.BaoLoi(ex);
+			} catch(Exception ex) {
+				Db.BaoLoi(ex);
+			}
+		}
 
-            if (cboPhuong.Items.Count > 0)
-            {
-                cboPhuong.SelectedIndex = -1;
-            }
+		private void btnSua_Click(object sender, EventArgs e) {
+			try {
+				if(!KiemTraDuLieu()) {
+					return;
+				}
 
-            txtCSKV.Clear();
-            txtToTruong.Clear();
-            txtDienThoai.Clear();
-            txtGhiChu.Clear();
+				Db.ThucThiSP(
+						"sp_ToDanPho_Sua",
+						new SqlParameter("@MaToDanPho", txtMaToDanPho.Text.Trim()),
+						new SqlParameter("@TenToDanPho", txtTenToDanPho.Text.Trim()),
+						new SqlParameter("@MaPhuong", cboPhuong.SelectedValue.ToString()),
+						new SqlParameter("@CSKV", txtCSKV.Text.Trim()),
+						new SqlParameter("@ToTruong", txtToTruong.Text.Trim()),
+						new SqlParameter("@DienThoai", txtDienThoai.Text.Trim()),
+						new SqlParameter("@GhiChu", txtGhiChu.Text.Trim()));
 
-            txtMaToDanPho.Enabled = true;
-            txtMaToDanPho.Focus();
-        }
+				MessageBox.Show(
+						"Cập nhật tổ dân phố thành công.",
+						"Thành công",
+						MessageBoxButtons.OK,
+						MessageBoxIcon.Information);
 
-        private void btnThem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (!KiemTraDuLieu())
-                {
-                    return;
-                }
+				TaiDuLieu();
+			} catch(SqlException ex) {
+				Db.BaoLoi(ex);
+			} catch(Exception ex) {
+				Db.BaoLoi(ex);
+			}
+		}
 
-                Db.ThucThiSP(
-                    "sp_ToDanPho_Them",
-                    new SqlParameter("@MaToDanPho", txtMaToDanPho.Text.Trim()),
-                    new SqlParameter("@TenToDanPho", txtTenToDanPho.Text.Trim()),
-                    new SqlParameter("@MaPhuong", cboPhuong.SelectedValue.ToString()),
-                    new SqlParameter("@CSKV", txtCSKV.Text.Trim()),
-                    new SqlParameter("@ToTruong", txtToTruong.Text.Trim()),
-                    new SqlParameter("@DienThoai", txtDienThoai.Text.Trim()),
-                    new SqlParameter("@GhiChu", txtGhiChu.Text.Trim()));
+		private void btnXoa_Click(object sender, EventArgs e) {
+			try {
+				if(!txtMaToDanPho.KiemTraTrong("mã tổ dân phố cần xóa")) {
+					return;
+				}
 
-                MessageBox.Show(
-                    "Thêm tổ dân phố thành công.",
-                    "Thành công",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+				bool xacNhan = MessageBox.Show(
+						"Xóa tổ dân phố sẽ bị chặn nếu đã có nhân khẩu. Bạn muốn tiếp tục?",
+						"Xác nhận xóa",
+						MessageBoxButtons.YesNo,
+						MessageBoxIcon.Question) == DialogResult.Yes;
 
-                TaiDuLieu();
-                XoaTrang();
-            }
-            catch (SqlException ex)
-            {
-                Db.BaoLoi(ex);
-            }
-            catch (Exception ex)
-            {
-                Db.BaoLoi(ex);
-            }
-        }
+				if(!xacNhan) {
+					return;
+				}
 
-        private void btnSua_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (!KiemTraDuLieu())
-                {
-                    return;
-                }
+				Db.ThucThiSP(
+						"sp_ToDanPho_Xoa",
+						new SqlParameter("@MaToDanPho", txtMaToDanPho.Text.Trim()));
 
-                Db.ThucThiSP(
-                    "sp_ToDanPho_Sua",
-                    new SqlParameter("@MaToDanPho", txtMaToDanPho.Text.Trim()),
-                    new SqlParameter("@TenToDanPho", txtTenToDanPho.Text.Trim()),
-                    new SqlParameter("@MaPhuong", cboPhuong.SelectedValue.ToString()),
-                    new SqlParameter("@CSKV", txtCSKV.Text.Trim()),
-                    new SqlParameter("@ToTruong", txtToTruong.Text.Trim()),
-                    new SqlParameter("@DienThoai", txtDienThoai.Text.Trim()),
-                    new SqlParameter("@GhiChu", txtGhiChu.Text.Trim()));
+				MessageBox.Show(
+						"Xóa tổ dân phố thành công.",
+						"Thành công",
+						MessageBoxButtons.OK,
+						MessageBoxIcon.Information);
 
-                MessageBox.Show(
-                    "Cập nhật tổ dân phố thành công.",
-                    "Thành công",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+				TaiDuLieu();
+				XoaTrang();
+			} catch(SqlException ex) {
+				Db.BaoLoi(ex);
+			} catch(Exception ex) {
+				Db.BaoLoi(ex);
+			}
+		}
 
-                TaiDuLieu();
-            }
-            catch (SqlException ex)
-            {
-                Db.BaoLoi(ex);
-            }
-            catch (Exception ex)
-            {
-                Db.BaoLoi(ex);
-            }
-        }
+		private void btnLamMoi_Click(object sender, EventArgs e) {
+			XoaTrang();
+			TaiDuLieu();
+		}
 
-        private void btnXoa_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (!Db.KiemTraTrong(txtMaToDanPho, "mã tổ dân phố cần xóa"))
-                {
-                    return;
-                }
+		private void dgvToDanPho_CellClick(object sender, DataGridViewCellEventArgs e) {
+			if(e.RowIndex < 0) {
+				return;
+			}
 
-                bool xacNhan = MessageBox.Show(
-                    "Xóa tổ dân phố sẽ bị chặn nếu đã có nhân khẩu. Bạn muốn tiếp tục?",
-                    "Xác nhận xóa",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question) == DialogResult.Yes;
+			DataGridViewRow row = dgvToDanPho.Rows[e.RowIndex];
 
-                if (!xacNhan)
-                {
-                    return;
-                }
+			txtMaToDanPho.Text = Convert.ToString(row.Cells["MaToDanPho"].Value);
+			txtTenToDanPho.Text = Convert.ToString(row.Cells["TenToDanPho"].Value);
+			cboPhuong.Text = Convert.ToString(row.Cells["TenPhuong"].Value);
+			txtCSKV.Text = Convert.ToString(row.Cells["CSKV"].Value);
+			txtToTruong.Text = Convert.ToString(row.Cells["ToTruong"].Value);
+			txtDienThoai.Text = Convert.ToString(row.Cells["DienThoai"].Value);
+			txtGhiChu.Text = Convert.ToString(row.Cells["GhiChu"].Value);
 
-                Db.ThucThiSP(
-                    "sp_ToDanPho_Xoa",
-                    new SqlParameter("@MaToDanPho", txtMaToDanPho.Text.Trim()));
-
-                MessageBox.Show(
-                    "Xóa tổ dân phố thành công.",
-                    "Thành công",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-
-                TaiDuLieu();
-                XoaTrang();
-            }
-            catch (SqlException ex)
-            {
-                Db.BaoLoi(ex);
-            }
-            catch (Exception ex)
-            {
-                Db.BaoLoi(ex);
-            }
-        }
-
-        private void btnLamMoi_Click(object sender, EventArgs e)
-        {
-            XoaTrang();
-            TaiDuLieu();
-        }
-
-        private void dgvToDanPho_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0)
-            {
-                return;
-            }
-
-            DataGridViewRow row = dgvToDanPho.Rows[e.RowIndex];
-
-            txtMaToDanPho.Text = Convert.ToString(row.Cells["MaToDanPho"].Value);
-            txtTenToDanPho.Text = Convert.ToString(row.Cells["TenToDanPho"].Value);
-            cboPhuong.Text = Convert.ToString(row.Cells["TenPhuong"].Value);
-            txtCSKV.Text = Convert.ToString(row.Cells["CSKV"].Value);
-            txtToTruong.Text = Convert.ToString(row.Cells["ToTruong"].Value);
-            txtDienThoai.Text = Convert.ToString(row.Cells["DienThoai"].Value);
-            txtGhiChu.Text = Convert.ToString(row.Cells["GhiChu"].Value);
-
-            txtMaToDanPho.Enabled = false;
-        }
-    }
+			txtMaToDanPho.Enabled = false;
+		}
+	}
 }

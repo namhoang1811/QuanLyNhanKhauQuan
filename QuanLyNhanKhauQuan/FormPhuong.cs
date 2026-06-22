@@ -32,7 +32,7 @@ namespace QuanLyNhanKhauQuan {
 				return false;
 			if(!txtDienThoai.KiemTraTrong("điện thoại"))
 				return false;
-			if(!Db.KiemTraSoDienThoai(txtDienThoai))
+			if(!txtDienThoai.KiemTraSoDienThoai())
 				return false;
 			if(!txtDiaChi.KiemTraTrong("địa chỉ"))
 				return false;
@@ -92,7 +92,7 @@ namespace QuanLyNhanKhauQuan {
 		}
 		private void btnXoa_Click(object sender, EventArgs e) {
 			try {
-				if(!Db.KiemTraTrong(txtMaPhuong, "mã phường cần xóa"))
+				if(!txtMaPhuong.KiemTraTrong("mã phường cần xóa"))
 					return;
 				if(!Db.Hoi("Xóa phường sẽ bị chặn nếu đã có tổ dân phố. Bạn muốn tiếp tục?"))
 					return;
