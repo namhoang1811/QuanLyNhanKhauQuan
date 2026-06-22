@@ -3,18 +3,20 @@ using System.Windows.Forms;
 
 namespace QuanLyNhanKhauQuan {
 	public partial class FormMenu : Form {
-		private string tenNguoiDung;
-		public FormMenu(string taiKhoan) {
+		private string tenDangNhap;
+		public FormMenu(string tenDangNhap, string quyen) {
 			InitializeComponent();
-			tenNguoiDung = taiKhoan;
+			this.tenDangNhap = tenDangNhap;
+			if(quyen != "Admin")
+				menuQuanLyTaiKhoan.Available = false; // Ẩn menu Quản lý tài khoản nếu không phải Admin
 			Load += FormMenu_Load;
 		}
 		private void FormMenu_Load(object sender, EventArgs e) {
 			// Mở FormPhuong mặc định ngay khi FormMenu vừa tải xong
-			helloUser.Text = $"Xin chào, {tenNguoiDung}";
-			MoFormCon(typeof(FormTaiKhoan));
+			helloUser.Text = $"Xin chào, {tenDangNhap}";
+			MoFormCon(typeof(FormPhuong));
 		}
-		private void MoFormCon(Type loaiForm) {
+		private void MoFormCon(Type loaiForm, params object[] thamSo) {
 			// 1. Kiểm tra xem Form đã mở trong danh sách MdiChildren chưa
 			foreach(Form f in MdiChildren) {
 				if(f.GetType() == loaiForm) {
@@ -23,7 +25,7 @@ namespace QuanLyNhanKhauQuan {
 				}
 			}
 			// 2. Nếu chưa mở, dùng Reflection để khởi tạo và hiển thị Form mới
-			Form formMoi = (Form)Activator.CreateInstance(loaiForm);
+			Form formMoi = (Form)Activator.CreateInstance(loaiForm, thamSo);
 			formMoi.MdiParent = this; // Chỉ định frmMain là form cha
 																
 			// --- Tối ưu hiển thị cho Form con ---
@@ -35,7 +37,10 @@ namespace QuanLyNhanKhauQuan {
 
 		// Hệ thống
 		private void MenuQuanLyTaiKhoan_Click(object sender, EventArgs e) {
-
+			MoFormCon(typeof(FormTaiKhoan), tenDangNhap);
+		}
+		private void MenuDoiMatKhau_Click(object sender, EventArgs e) {
+			MoFormCon(typeof(FormDoiMatKhau), tenDangNhap);
 		}
 		private void MenuDangXuat_Click(object sender, EventArgs e) {
 			var result = MessageBoxHelper.YesNoQuestion("Bạn có chắc chắn muốn Đăng xuất hệ thống?");

@@ -119,6 +119,7 @@ namespace QuanLyNhanKhauQuan
             // 
             this.txtMatKhau.Location = new System.Drawing.Point(520, 72);
             this.txtMatKhau.Name = "txtMatKhau";
+            this.txtMatKhau.PasswordChar = '*';
             this.txtMatKhau.Size = new System.Drawing.Size(260, 25);
             this.txtMatKhau.TabIndex = 1;
             // 
@@ -189,9 +190,9 @@ namespace QuanLyNhanKhauQuan
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(386, 252);
+            this.label1.Location = new System.Drawing.Point(430, 252);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(110, 25);
+            this.label1.Size = new System.Drawing.Size(74, 25);
             this.label1.TabIndex = 17;
             this.label1.Text = "Tìm kiếm";
             // 

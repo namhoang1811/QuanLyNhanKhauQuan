@@ -21,18 +21,14 @@ namespace QuanLyNhanKhauQuan {
 				if(!txtTenDangNhap.KiemTraTrong("mật khẩu"))
 					return;
 				var taiKhoan = txtTenDangNhap.Text.Trim();
-				var matKhauDaHash = HashPasswordSHA512ToBytes(txtMatKhau.Text);
+				var matKhauDaHash = Db.HashPasswordSHA512ToBytes(txtMatKhau.Text);
 				var ketQua = Db.LayGiaTri(
-						@"IF EXISTS (
-								SELECT 1 FROM tblTaiKhoan
-								WHERE TenDangNhap = @TenDangNhap AND MatKhau = @MatKhau AND TrangThai = 1
-							)
-							SELECT 1 ELSE SELECT 0;",
-						new SqlParameter("@TenDangNhap", taiKhoan),
-						new SqlParameter("@MatKhau", matKhauDaHash));
-				var isExist = Convert.ToInt32(ketQua) == 1;
-				if(isExist) {
-					var form = new FormMenu(taiKhoan);
+								"SELECT Quyen FROM tblTaiKhoan WHERE TenDangNhap = @TenDangNhap AND MatKhau = @MatKhau AND TrangThai = 1;",
+								new SqlParameter("@TenDangNhap", taiKhoan),
+								new SqlParameter("@MatKhau", matKhauDaHash));
+				if(ketQua != null && ketQua != DBNull.Value) {
+					var quyen = Convert.ToString(ketQua);
+					var form = new FormMenu(taiKhoan, quyen);
 					Hide();
 					form.ShowDialog();
 					Close();
@@ -58,14 +54,5 @@ namespace QuanLyNhanKhauQuan {
 			}
 		}
 
-		private byte[] HashPasswordSHA512ToBytes(string password) {
-			using(SHA512 sha512 = SHA512.Create()) {
-				// Chuyển chuỗi sang mảng byte theo chuẩn ASCII/ANSI để khớp với '123' trong SQL
-				byte[] sourceBytes = Encoding.ASCII.GetBytes(password);
-
-				// Trả về mảng byte đã băm (đúng 64 bytes cho SHA512)
-				return sha512.ComputeHash(sourceBytes);
-			}
-		}
 	}
 }

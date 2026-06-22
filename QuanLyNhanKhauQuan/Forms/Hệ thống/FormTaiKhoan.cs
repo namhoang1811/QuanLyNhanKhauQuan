@@ -5,8 +5,10 @@ using System.Windows.Forms;
 
 namespace QuanLyNhanKhauQuan {
 	public partial class FormTaiKhoan : Form {
-		public FormTaiKhoan() {
+		private string tenDangNhap;
+		public FormTaiKhoan(string tenDangNhap) {
 			InitializeComponent();
+			this.tenDangNhap = tenDangNhap;
 		}
 
 		private void FormPhuong_Load(object sender, EventArgs e) {
@@ -25,7 +27,7 @@ namespace QuanLyNhanKhauQuan {
 			// 1. Tạm thời ngắt sự kiện để DataGridView không tự động nhảy vào hàm SelectionChanged
 			dgvPhuong.SelectionChanged -= DgvTaiKhoan_SelectionChanged;
 			// 2. Đổ dữ liệu mới vào bảng
-			dgvPhuong.DataSource = Db.LayDuLieu("SELECT TenDangNhap, null, HoTen, ViTri, Quyen, DienThoai FROM tblPhuong ORDER BY NgaySua DESC");
+			dgvPhuong.DataSource = Db.LayDuLieu("SELECT TenDangNhap, HoTen, ViTri, Quyen, DienThoai FROM tblTaiKhoan ORDER BY NgaySua DESC");
 			// 3. Hủy bỏ hoàn toàn ô đang được focus ngầm
 			dgvPhuong.CurrentCell = null;
 			// 4. Bật lại sự kiện để bảng phản hồi với thao tác của người dùng như bình thường
@@ -33,15 +35,15 @@ namespace QuanLyNhanKhauQuan {
 		}
 
 		private bool KiemTraDuLieu(bool isCreate) {
-			if(!txtTenDangNhap.KiemTraTrong("tên đăng nhập"))
+			if(!txtTenDangNhap.KiemTraTrong("Tên đăng nhập"))
 				return false;
-			if(isCreate && !txtMatKhau.KiemTraTrong("mật khẩu"))
+			if(isCreate && !txtMatKhau.KiemTraTrong("Mật khẩu"))
 				return false;
-			if(!txtHoTen.KiemTraTrong("vị trí"))
+			if(!txtHoTen.KiemTraTrong("Họ tên"))
 				return false;
-			if(!txtViTri.KiemTraTrong("họ và tên"))
+			if(!txtViTri.KiemTraTrong("Vị trí"))
 				return false;
-			if(!cboQuyen.KiemTraChon("quyền"))
+			if(!cboQuyen.KiemTraChon("Quyền"))
 				return false;
 			return true;
 		}
@@ -69,7 +71,8 @@ namespace QuanLyNhanKhauQuan {
 					new SqlParameter("@HoTen", txtHoTen.Text.Trim()), 
 					new SqlParameter("@ViTri", txtViTri.Text.Trim()), 
 					new SqlParameter("@Quyen", cboQuyen.Text.Trim()),
-					new SqlParameter("@DienThoai", txtDienThoai.Text.Trim()));
+					new SqlParameter("@DienThoai", string.IsNullOrWhiteSpace(txtDienThoai.Text) ? (object)DBNull.Value : txtDienThoai.Text.Trim()),
+					new SqlParameter("@NguoiTao", tenDangNhap));
 				MessageBoxHelper.ThongBao("Thêm tài khoản thành công.");
 				TaiDuLieu();
 				XoaTrang();
@@ -88,7 +91,8 @@ namespace QuanLyNhanKhauQuan {
 					new SqlParameter("@HoTen", txtHoTen.Text.Trim()),
 					new SqlParameter("@ViTri", txtViTri.Text.Trim()),
 					new SqlParameter("@Quyen", cboQuyen.Text.Trim()),
-					new SqlParameter("@DienThoai", txtDienThoai.Text.Trim()));
+					new SqlParameter("@DienThoai", string.IsNullOrWhiteSpace(txtDienThoai.Text) ? (object)DBNull.Value : txtDienThoai.Text.Trim()),
+					new SqlParameter("@NguoiSua", tenDangNhap));
 				MessageBoxHelper.ThongBao("Cập nhật tài khoản thành công.");
 				TaiDuLieu();
 			} catch(Exception ex) {
@@ -134,10 +138,10 @@ namespace QuanLyNhanKhauQuan {
 				return;
 			DataGridViewRow row = dgvPhuong.SelectedRows[0];
 			txtTenDangNhap.NapTextBox(row.Cells["TenDangNhap"]);
-			txtMatKhau.NapTextBox(row.Cells["MatKhau"]);
+			txtMatKhau.Text = null;
 			txtHoTen.NapTextBox(row.Cells["HoTen"]);
 			txtViTri.NapTextBox(row.Cells["ViTri"]);
-			cboQuyen.ChonTheoCell(row.Cells["Quyen"]);
+			cboQuyen.NapComboBox(row.Cells["Quyen"]);
 			txtDienThoai.NapTextBox(row.Cells["DienThoai"]);
 			txtTenDangNhap.Enabled = false;
 			CapNhatTrangThaiNutBam(true);

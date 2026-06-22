@@ -5,7 +5,7 @@ using System.Windows.Forms;
 namespace QuanLyNhanKhauQuan {
 	internal static class ComboBoxHelper {
 		
-		public static void ChonTheoCell(this ComboBox comboBox, DataGridViewCell cell) {
+		public static void NapComboBox(this ComboBox comboBox, DataGridViewCell cell) {
 			var text = Convert.ToString(cell.Value);
 			for(int i = 0; i < comboBox.Items.Count; i++) {
 				if(comboBox.GetItemText(comboBox.Items[i]) == text) {
@@ -25,7 +25,7 @@ namespace QuanLyNhanKhauQuan {
 		}
 
 		public static bool KiemTraChon(this ComboBox comboBox, string tenTruong) {
-			if(comboBox.SelectedIndex < 0 || comboBox.SelectedValue == null) {
+			if(comboBox.SelectedIndex < 0 || string.IsNullOrWhiteSpace(comboBox.Text)) {
 				MessageBox.Show(
 						"Vui lòng chọn " + tenTruong + ".",
 						"Thiếu dữ liệu",

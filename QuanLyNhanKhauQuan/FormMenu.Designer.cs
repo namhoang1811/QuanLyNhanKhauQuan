@@ -89,6 +89,7 @@
             this.menuDoiMatKhau.Name = "menuDoiMatKhau";
             this.menuDoiMatKhau.Size = new System.Drawing.Size(180, 22);
             this.menuDoiMatKhau.Text = "Đổi mật khẩu";
+            this.menuDoiMatKhau.Click += new System.EventHandler(this.MenuDoiMatKhau_Click);
             // 
             // menuDangXuat
             // 
@@ -116,14 +117,14 @@
             // menuPhuong
             // 
             this.menuPhuong.Name = "menuPhuong";
-            this.menuPhuong.Size = new System.Drawing.Size(135, 22);
+            this.menuPhuong.Size = new System.Drawing.Size(180, 22);
             this.menuPhuong.Text = "Phường";
             this.menuPhuong.Click += new System.EventHandler(this.MenuPhuong_Click);
             // 
             // menuToDanPho
             // 
             this.menuToDanPho.Name = "menuToDanPho";
-            this.menuToDanPho.Size = new System.Drawing.Size(135, 22);
+            this.menuToDanPho.Size = new System.Drawing.Size(180, 22);
             this.menuToDanPho.Text = "Tổ dân phố";
             this.menuToDanPho.Click += new System.EventHandler(this.MenuToDanPho_Click);
             // 

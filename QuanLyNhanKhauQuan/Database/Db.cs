@@ -1,6 +1,8 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace QuanLyNhanKhauQuan {
 	internal static class Db {
@@ -49,6 +51,16 @@ namespace QuanLyNhanKhauQuan {
 					command.Parameters.AddRange(parameters);
 				connection.Open();
 				return command.ExecuteScalar();
+			}
+		}
+
+		public static byte[] HashPasswordSHA512ToBytes(string password) {
+			using(SHA512 sha512 = SHA512.Create()) {
+				// Chuyển chuỗi sang mảng byte theo chuẩn ASCII/ANSI để khớp với '123' trong SQL
+				byte[] sourceBytes = Encoding.ASCII.GetBytes(password);
+
+				// Trả về mảng byte đã băm (đúng 64 bytes cho SHA512)
+				return sha512.ComputeHash(sourceBytes);
 			}
 		}
 

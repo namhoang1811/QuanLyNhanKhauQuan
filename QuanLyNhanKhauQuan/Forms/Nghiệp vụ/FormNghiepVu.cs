@@ -17,13 +17,11 @@ namespace QuanLyNhanKhauQuan {
 
 		private void NapLoaiNghiepVu() {
 			cboLoaiNghiepVu.Items.Clear();
-
 			cboLoaiNghiepVu.Items.Add("Tách hộ");
 			cboLoaiNghiepVu.Items.Add("Nhập hộ");
 			cboLoaiNghiepVu.Items.Add("Chuyển đi");
 			cboLoaiNghiepVu.Items.Add("Nhập mới sinh");
 			cboLoaiNghiepVu.Items.Add("Báo tử");
-
 			cboLoaiNghiepVu.SelectedIndex = -1;
 		}
 
@@ -178,7 +176,7 @@ namespace QuanLyNhanKhauQuan {
 			DataGridViewRow row = dgvNghiepVu.Rows[e.RowIndex];
 			txtMaNghiepVu.Text = Convert.ToString(row.Cells["MaNghiepVu"].Value);
 			cboNhanKhau.Text = Convert.ToString(row.Cells["HoTenChuHo"].Value);
-			cboLoaiNghiepVu.ChonTheoCell(row.Cells["LoaiNghiepVu"]);
+			cboLoaiNghiepVu.NapComboBox(row.Cells["LoaiNghiepVu"]);
 			if(row.Cells["NgayThucHien"].Value != null) {
 				dtpNgayThucHien.Value = Convert.ToDateTime(row.Cells["NgayThucHien"].Value);
 			}
