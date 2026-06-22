@@ -40,6 +40,7 @@
             this.menuThongTin = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.helloUser = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuCRTaiKhoan = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -154,6 +155,8 @@
             // 
             // báoCáoToolStripMenuItem
             // 
+            this.báoCáoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuCRTaiKhoan});
             this.báoCáoToolStripMenuItem.Name = "báoCáoToolStripMenuItem";
             this.báoCáoToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.báoCáoToolStripMenuItem.Text = "&Báo cáo";
@@ -163,7 +166,7 @@
             this.menuThongTin.Name = "menuThongTin";
             this.menuThongTin.Size = new System.Drawing.Size(71, 20);
             this.menuThongTin.Text = "&Thông tin";
-            this.menuThongTin.Click += new System.EventHandler(this.menuThongTin_Click);
+            this.menuThongTin.Click += new System.EventHandler(this.MenuThongTin_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -180,10 +183,18 @@
             this.helloUser.Size = new System.Drawing.Size(98, 20);
             this.helloUser.Text = "Xin chào, User";
             // 
+            // menuCRTaiKhoan
+            // 
+            this.menuCRTaiKhoan.Name = "menuCRTaiKhoan";
+            this.menuCRTaiKhoan.Size = new System.Drawing.Size(180, 22);
+            this.menuCRTaiKhoan.Text = "Tài khoản";
+            this.menuCRTaiKhoan.Click += new System.EventHandler(this.MenuCRTaiKhoan_Click);
+            // 
             // FormMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(240)))), ((int)(((byte)(245)))));
             this.ClientSize = new System.Drawing.Size(820, 581);
             this.Controls.Add(this.menuStrip1);
             this.IsMdiContainer = true;
@@ -218,5 +229,6 @@
 		private System.Windows.Forms.ToolStripMenuItem menuNhaKhauHoKhau;
 		private System.Windows.Forms.ToolStripMenuItem menuNguoiPhuThuoc;
 		private System.Windows.Forms.ToolStripMenuItem menuDoiMatKhau;
+		private System.Windows.Forms.ToolStripMenuItem menuCRTaiKhoan;
 	}
 }

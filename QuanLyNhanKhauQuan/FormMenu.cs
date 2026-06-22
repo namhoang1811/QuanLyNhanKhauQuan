@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuanLyNhanKhauQuan.Forms.BaoCao;
+using System;
 using System.Windows.Forms;
 
 namespace QuanLyNhanKhauQuan {
@@ -75,10 +76,15 @@ namespace QuanLyNhanKhauQuan {
 			MoFormCon(typeof(FormNghiepVu));
 		}
 
-		private void menuThongTin_Click(object sender, EventArgs e) {
+		private void MenuThongTin_Click(object sender, EventArgs e) {
 
 		}
+
 		// Báo cáo
+		private void MenuCRTaiKhoan_Click(object sender, EventArgs e) {
+			var f = new FormCRTaiKhoan();
+			f.ShowDialog();
+		}
 
 	}
 }
