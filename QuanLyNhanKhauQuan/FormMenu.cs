@@ -77,7 +77,7 @@ namespace QuanLyNhanKhauQuan {
 		}
 
 		private void MenuThongTin_Click(object sender, EventArgs e) {
-
+			MoFormCon(typeof(FormNhom));			
 		}
 
 		// Báo cáo
