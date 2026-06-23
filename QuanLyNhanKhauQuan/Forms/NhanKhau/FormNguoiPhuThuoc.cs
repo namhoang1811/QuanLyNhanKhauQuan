@@ -17,7 +17,6 @@ namespace QuanLyNhanKhauQuan {
 
 		private void NapQuanHe() {
 			cboQuanHe.Items.Clear();
-
 			cboQuanHe.Items.Add("Vợ");
 			cboQuanHe.Items.Add("Chồng");
 			cboQuanHe.Items.Add("Con");
@@ -29,7 +28,6 @@ namespace QuanLyNhanKhauQuan {
 			cboQuanHe.Items.Add("Ông");
 			cboQuanHe.Items.Add("Bà");
 			cboQuanHe.Items.Add("Khác");
-
 			cboQuanHe.SelectedIndex = -1;
 		}
 
@@ -38,7 +36,6 @@ namespace QuanLyNhanKhauQuan {
 					"SELECT MaNhanKhau, HoTenChuHo FROM tblNhanKhau ORDER BY HoTenChuHo",
 					"HoTenChuHo",
 					"MaNhanKhau");
-
 			cboNhanKhau.SelectedIndex = -1;
 		}
 
@@ -57,94 +54,33 @@ namespace QuanLyNhanKhauQuan {
 					"ORDER BY p.MaPhuThuoc");
 		}
 
-		private string LayGioiTinh() {
-			if(rdoNam.Checked) {
-				return "Nam";
-			}
-
-			return "Nữ";
-		}
-
-		private void ChonComboBoxTheoText(ComboBox comboBox, string text) {
-			for(int i = 0; i < comboBox.Items.Count; i++) {
-				if(comboBox.GetItemText(comboBox.Items[i]) == text) {
-					comboBox.SelectedIndex = i;
-					return;
-				}
-			}
-
-			comboBox.SelectedIndex = -1;
-		}
+		private string LayGioiTinh() => rdoNam.Checked ? "Nam" : "Nữ";
 
 		private bool KiemTraDuLieu() {
-			if(!txtMaPhuThuoc.KiemTraTrong("mã phụ thuộc")) {
-				return false;
-			}
-
-			if(!txtHoTen.KiemTraTrong("họ tên")) {
-				return false;
-			}
-
-			if(dtpNgaySinh.Value.Date > DateTime.Today) {
-				MessageBox.Show(
-						"Ngày sinh không được lớn hơn ngày hiện tại.",
-						"Dữ liệu không hợp lệ",
-						MessageBoxButtons.OK,
-						MessageBoxIcon.Warning);
-
-				dtpNgaySinh.Focus();
-				return false;
-			}
-
-			if(string.IsNullOrWhiteSpace(cboQuanHe.Text)) {
-				MessageBox.Show(
-						"Vui lòng chọn quan hệ với chủ hộ.",
-						"Thiếu dữ liệu",
-						MessageBoxButtons.OK,
-						MessageBoxIcon.Warning);
-
-				cboQuanHe.Focus();
-				return false;
-			}
-
-			if(cboNhanKhau.SelectedValue == null || string.IsNullOrWhiteSpace(cboNhanKhau.Text)) {
-				MessageBox.Show(
-						"Vui lòng chọn chủ hộ.",
-						"Thiếu dữ liệu",
-						MessageBoxButtons.OK,
-						MessageBoxIcon.Warning);
-
-				cboNhanKhau.Focus();
-				return false;
-			}
-
+			if(!txtMaPhuThuoc.KiemTraTrong("Mã phụ thuộc")) return false;
+			if(!txtHoTen.KiemTraTrong("Họ tên")) return false;
+			if(!dtpNgaySinh.KiemTraNgayKhongVuotHienTai("Ngày sinh")) return false;
+			if(cboQuanHe.KiemTraChon("Quan hệ")) return false;
+			if(cboNhanKhau.KiemTraChon("Chủ hộ")) return false;
 			return true;
 		}
 
 		private void XoaTrang() {
 			txtMaPhuThuoc.Clear();
 			txtHoTen.Clear();
-
 			dtpNgaySinh.Value = DateTime.Today.AddYears(-10);
-
 			rdoNam.Checked = true;
 			rdoNu.Checked = false;
-
 			txtNgheNghiep.Clear();
-
 			cboQuanHe.SelectedIndex = -1;
 			cboNhanKhau.SelectedIndex = -1;
-
 			txtMaPhuThuoc.Enabled = true;
 			txtMaPhuThuoc.Focus();
 		}
 
 		private void btnThem_Click(object sender, EventArgs e) {
 			try {
-				if(!KiemTraDuLieu()) {
-					return;
-				}
-
+				if(!KiemTraDuLieu()) return;
 				Db.ThucThiSP(
 						"sp_NguoiPhuThuoc_Them",
 						new SqlParameter("@MaPhuThuoc", txtMaPhuThuoc.Text.Trim()),
@@ -154,13 +90,11 @@ namespace QuanLyNhanKhauQuan {
 						new SqlParameter("@NgheNghiep", txtNgheNghiep.Text.Trim()),
 						new SqlParameter("@QuanHe", cboQuanHe.Text.Trim()),
 						new SqlParameter("@MaNhanKhau", cboNhanKhau.SelectedValue.ToString()));
-
 				MessageBox.Show(
 						"Thêm người phụ thuộc thành công.",
 						"Thành công",
 						MessageBoxButtons.OK,
 						MessageBoxIcon.Information);
-
 				TaiDuLieu();
 				XoaTrang();
 			} catch(Exception ex) {
@@ -170,10 +104,7 @@ namespace QuanLyNhanKhauQuan {
 
 		private void btnSua_Click(object sender, EventArgs e) {
 			try {
-				if(!KiemTraDuLieu()) {
-					return;
-				}
-
+				if(!KiemTraDuLieu()) return;
 				Db.ThucThiSP(
 						"sp_NguoiPhuThuoc_Sua",
 						new SqlParameter("@MaPhuThuoc", txtMaPhuThuoc.Text.Trim()),
@@ -183,13 +114,11 @@ namespace QuanLyNhanKhauQuan {
 						new SqlParameter("@NgheNghiep", txtNgheNghiep.Text.Trim()),
 						new SqlParameter("@QuanHe", cboQuanHe.Text.Trim()),
 						new SqlParameter("@MaNhanKhau", cboNhanKhau.SelectedValue.ToString()));
-
 				MessageBox.Show(
 						"Cập nhật người phụ thuộc thành công.",
 						"Thành công",
 						MessageBoxButtons.OK,
 						MessageBoxIcon.Information);
-
 				TaiDuLieu();
 			} catch(Exception ex) {
 				ex.BaoLoi();
@@ -198,30 +127,21 @@ namespace QuanLyNhanKhauQuan {
 
 		private void btnXoa_Click(object sender, EventArgs e) {
 			try {
-				if(!txtMaPhuThuoc.KiemTraTrong("mã phụ thuộc cần xóa")) {
-					return;
-				}
-
+				if(!txtMaPhuThuoc.KiemTraTrong("mã phụ thuộc cần xóa")) return;
 				DialogResult result = MessageBox.Show(
 						"Bạn có chắc muốn xóa người phụ thuộc này không?",
 						"Xác nhận xóa",
 						MessageBoxButtons.YesNo,
 						MessageBoxIcon.Question);
-
-				if(result != DialogResult.Yes) {
-					return;
-				}
-
+				if(result != DialogResult.Yes) return;
 				Db.ThucThiSP(
 						"sp_NguoiPhuThuoc_Xoa",
 						new SqlParameter("@MaPhuThuoc", txtMaPhuThuoc.Text.Trim()));
-
 				MessageBox.Show(
 						"Xóa người phụ thuộc thành công.",
 						"Thành công",
 						MessageBoxButtons.OK,
 						MessageBoxIcon.Information);
-
 				TaiDuLieu();
 				XoaTrang();
 			} catch(Exception ex) {
@@ -235,32 +155,18 @@ namespace QuanLyNhanKhauQuan {
 		}
 
 		private void dgvNguoiPhuThuoc_CellClick(object sender, DataGridViewCellEventArgs e) {
-			if(e.RowIndex < 0) {
-				return;
-			}
-
+			if(e.RowIndex < 0) return;
 			DataGridViewRow row = dgvNguoiPhuThuoc.Rows[e.RowIndex];
-
-			txtMaPhuThuoc.Text = Convert.ToString(row.Cells["MaPhuThuoc"].Value);
-			txtHoTen.Text = Convert.ToString(row.Cells["HoTen"].Value);
-
-			if(row.Cells["NgaySinh"].Value != null) {
+			txtMaPhuThuoc.NapTextBox(row.Cells["MaPhuThuoc"]);
+			txtHoTen.NapTextBox(row.Cells["HoTen"]);
+			if(row.Cells["NgaySinh"].Value != null) 
 				dtpNgaySinh.Value = Convert.ToDateTime(row.Cells["NgaySinh"].Value);
-			}
-
 			string gioiTinh = Convert.ToString(row.Cells["GioiTinh"].Value);
-
 			rdoNam.Checked = gioiTinh == "Nam";
 			rdoNu.Checked = gioiTinh != "Nam";
-
-			txtNgheNghiep.Text = Convert.ToString(row.Cells["NgheNghiep"].Value);
-
-			ChonComboBoxTheoText(
-					cboQuanHe,
-					Convert.ToString(row.Cells["QuanHe"].Value));
-
-			cboNhanKhau.Text = Convert.ToString(row.Cells["HoTenChuHo"].Value);
-
+			txtNgheNghiep.NapTextBox(row.Cells["NgheNghiep"]);
+			cboQuanHe.NapComboBox(row.Cells["QuanHe"]);
+			cboNhanKhau.NapComboBox(row.Cells["HoTenChuHo"]);
 			txtMaPhuThuoc.Enabled = false;
 		}
 	}

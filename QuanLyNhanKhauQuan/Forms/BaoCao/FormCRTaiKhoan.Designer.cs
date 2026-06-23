@@ -37,7 +37,7 @@
             this.crystalReportViewer1.Size = new System.Drawing.Size(957, 660);
             this.crystalReportViewer1.TabIndex = 0;
             // 
-            // RPTaiKhoan
+            // FormCRTaiKhoan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -46,8 +46,8 @@
             this.Controls.Add(this.crystalReportViewer1);
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "RPTaiKhoan";
-            this.Text = "RPTaiKhoan";
+            this.Name = "FormCRTaiKhoan";
+            this.Text = "Báo cáo Crystal Report về Tài khoản";
             this.Load += new System.EventHandler(this.RPTaiKhoan_Load);
             this.ResumeLayout(false);
 

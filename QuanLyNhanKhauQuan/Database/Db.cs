@@ -58,7 +58,6 @@ namespace QuanLyNhanKhauQuan {
 			using(SHA512 sha512 = SHA512.Create()) {
 				// Chuyển chuỗi sang mảng byte theo chuẩn ASCII/ANSI để khớp với '123' trong SQL
 				byte[] sourceBytes = Encoding.ASCII.GetBytes(password);
-
 				// Trả về mảng byte đã băm (đúng 64 bytes cho SHA512)
 				return sha512.ComputeHash(sourceBytes);
 			}
