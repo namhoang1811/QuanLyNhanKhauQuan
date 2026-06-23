@@ -1,5 +1,0 @@
-
-Tai khoan dang nhap:
-- Ten dang nhap: admin
-- Mat khau: 123
-

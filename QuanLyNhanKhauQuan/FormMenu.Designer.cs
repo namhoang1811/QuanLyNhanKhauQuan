@@ -164,7 +164,7 @@
             // menuCRTaiKhoan
             // 
             this.menuCRTaiKhoan.Name = "menuCRTaiKhoan";
-            this.menuCRTaiKhoan.Size = new System.Drawing.Size(180, 22);
+            this.menuCRTaiKhoan.Size = new System.Drawing.Size(125, 22);
             this.menuCRTaiKhoan.Text = "Tài khoản";
             this.menuCRTaiKhoan.Click += new System.EventHandler(this.MenuCRTaiKhoan_Click);
             // 
@@ -202,7 +202,7 @@
             this.MaximizeBox = false;
             this.Name = "FormMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Quản lý Nhân khẩu Quận 1";
+            this.Text = "Quản lý Nhân khẩu 1 Quận";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
