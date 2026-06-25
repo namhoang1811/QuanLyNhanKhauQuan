@@ -15,7 +15,7 @@ namespace QuanLyNhanKhauQuan {
 		private void BtnDangNhap_Click(object sender, EventArgs e) {
 			try {
 				if(!txtTenDangNhap.KiemTraTrong("tên đăng nhập")) return;
-				if(!txtTenDangNhap.KiemTraTrong("mật khẩu")) return;
+				if(!txtMatKhau.KiemTraTrong("mật khẩu")) return;
 				var taiKhoan = txtTenDangNhap.Text.Trim();
 				var matKhauDaHash = Db.HashPasswordSHA512ToBytes(txtMatKhau.Text);
 				var ketQua = Db.LayGiaTri(

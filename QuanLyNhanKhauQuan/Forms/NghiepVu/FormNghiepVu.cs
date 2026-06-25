@@ -110,9 +110,7 @@ namespace QuanLyNhanKhauQuan {
 
 		private void btnThem_Click(object sender, EventArgs e) {
 			try {
-				if(!KiemTraDuLieu())
-					return;
-
+				if(!KiemTraDuLieu()) return;
 				Db.ThucThiSP(
 						"sp_NghiepVu_Them",
 						new SqlParameter("@MaNghiepVu", txtMaNghiepVu.Text.Trim()),
@@ -121,15 +119,12 @@ namespace QuanLyNhanKhauQuan {
 						new SqlParameter("@NgayThucHien", dtpNgayThucHien.Value.Date),
 						new SqlParameter("@NoiDung", txtNoiDung.Text.Trim()),
 						new SqlParameter("@GhiChu", txtGhiChu.Text.Trim()));
-
 				CapNhatTinhTrangTheoNghiepVu();
-
 				MessageBox.Show(
 						"Ghi nhận nghiệp vụ thành công.",
 						"Thành công",
 						MessageBoxButtons.OK,
 						MessageBoxIcon.Information);
-
 				TaiDuLieu();
 				LamMoi();
 			} catch(SqlException ex) {
