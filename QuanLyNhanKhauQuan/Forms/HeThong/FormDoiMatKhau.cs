@@ -30,6 +30,13 @@ namespace QuanLyNhanKhauQuan {
 					txtMatKhauMoi.Focus();
 					return;
 				}
+				if(txtMatKhauMoi.Text.Length < 6) {
+					MessageBox.Show("Mật khẩu mới phải có ít nhất 6 ký tự.", "Mật khẩu quá ngắn", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+					txtMatKhauMoi.Clear();
+					txtXacNhanMatKhau.Clear();
+					txtMatKhauMoi.Focus();
+					return;
+				}
 				// Kiểm tra dữ liệu
 				Db.ThucThiSP("sp_TaiKhoan_DoiMatKhau", 
 					new SqlParameter("@TenDangNhap", tenDangNhap), 
