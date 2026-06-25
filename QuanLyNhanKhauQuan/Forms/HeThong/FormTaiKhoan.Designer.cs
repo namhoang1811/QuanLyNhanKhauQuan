@@ -67,7 +67,7 @@ namespace QuanLyNhanKhauQuan
             this.lblTenDangNhap.Name = "lblTenDangNhap";
             this.lblTenDangNhap.Size = new System.Drawing.Size(110, 25);
             this.lblTenDangNhap.TabIndex = 1;
-            this.lblTenDangNhap.Text = "Tên đăng nhập";
+            this.lblTenDangNhap.Text = "Tài khoản (*)";
             // 
             // lblHoTen
             // 
@@ -75,7 +75,7 @@ namespace QuanLyNhanKhauQuan
             this.lblHoTen.Name = "lblHoTen";
             this.lblHoTen.Size = new System.Drawing.Size(110, 25);
             this.lblHoTen.TabIndex = 2;
-            this.lblHoTen.Text = "Họ tên";
+            this.lblHoTen.Text = "Họ tên (*)";
             // 
             // lblQuyen
             // 
@@ -83,7 +83,7 @@ namespace QuanLyNhanKhauQuan
             this.lblQuyen.Name = "lblQuyen";
             this.lblQuyen.Size = new System.Drawing.Size(110, 25);
             this.lblQuyen.TabIndex = 3;
-            this.lblQuyen.Text = "Quyền";
+            this.lblQuyen.Text = "Quyền (*)";
             // 
             // lblMatKhau
             // 
@@ -99,7 +99,7 @@ namespace QuanLyNhanKhauQuan
             this.lblViTri.Name = "lblViTri";
             this.lblViTri.Size = new System.Drawing.Size(90, 25);
             this.lblViTri.TabIndex = 5;
-            this.lblViTri.Text = "Vị trí";
+            this.lblViTri.Text = "Vị trí (*)";
             // 
             // txtTenDangNhap
             // 

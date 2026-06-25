@@ -52,6 +52,7 @@ namespace QuanLyNhanKhauQuan {
 			txtDienThoai.Clear();
 			txtTimKiem.Clear();
 			txtTenDangNhap.Enabled = true;
+			lblMatKhau.Text = "Mật khẩu (*)";
 			txtTenDangNhap.Focus();
 			CapNhatTrangThaiNutBam(false);
 		}
@@ -137,6 +138,7 @@ namespace QuanLyNhanKhauQuan {
 			cboQuyen.NapComboBox(row.Cells["Quyen"]);
 			txtDienThoai.NapTextBox(row.Cells["DienThoai"]);
 			txtTenDangNhap.Enabled = false;
+			lblMatKhau.Text = "Mật khẩu";
 			CapNhatTrangThaiNutBam(true);
 		}
 

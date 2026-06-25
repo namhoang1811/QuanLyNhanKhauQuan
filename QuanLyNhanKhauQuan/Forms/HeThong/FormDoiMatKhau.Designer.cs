@@ -40,17 +40,17 @@ namespace QuanLyNhanKhauQuan {
             // 
             this.lblMatKhauCu.Location = new System.Drawing.Point(197, 122);
             this.lblMatKhauCu.Name = "lblMatKhauCu";
-            this.lblMatKhauCu.Size = new System.Drawing.Size(90, 25);
+            this.lblMatKhauCu.Size = new System.Drawing.Size(131, 25);
             this.lblMatKhauCu.TabIndex = 4;
-            this.lblMatKhauCu.Text = "Mật khẩu cũ";
+            this.lblMatKhauCu.Text = "Mật khẩu cũ (*)";
             // 
             // lblMatKhauMoi
             // 
             this.lblMatKhauMoi.Location = new System.Drawing.Point(197, 162);
             this.lblMatKhauMoi.Name = "lblMatKhauMoi";
-            this.lblMatKhauMoi.Size = new System.Drawing.Size(104, 25);
+            this.lblMatKhauMoi.Size = new System.Drawing.Size(131, 25);
             this.lblMatKhauMoi.TabIndex = 5;
-            this.lblMatKhauMoi.Text = "Mật khẩu mới";
+            this.lblMatKhauMoi.Text = "Mật khẩu mới (*)";
             // 
             // txtMatKhauCu
             // 
@@ -81,9 +81,9 @@ namespace QuanLyNhanKhauQuan {
             // 
             this.lblDienThoai.Location = new System.Drawing.Point(197, 202);
             this.lblDienThoai.Name = "lblDienThoai";
-            this.lblDienThoai.Size = new System.Drawing.Size(131, 25);
+            this.lblDienThoai.Size = new System.Drawing.Size(157, 25);
             this.lblDienThoai.TabIndex = 18;
-            this.lblDienThoai.Text = "Xác nhận mật khẩu";
+            this.lblDienThoai.Text = "Xác nhận mật khẩu (*)";
             // 
             // txtXacNhanMatKhau
             // 
