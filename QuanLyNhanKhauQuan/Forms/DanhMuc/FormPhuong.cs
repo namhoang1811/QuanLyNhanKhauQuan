@@ -107,7 +107,7 @@ namespace QuanLyNhanKhauQuan {
 					// 3. Sử dụng cú pháp tương tự mệnh đề WHERE trong SQL để lọc
 					// Lọc tương đối (LIKE) trên cả 2 cột: Mã Phường và Tên Phường
 					// Lưu ý: Cú pháp RowFilter không phân biệt chữ hoa chữ thường
-					dt.DefaultView.RowFilter = $"MaPhuong LIKE '%{tuKhoa}%' OR TenPhuong LIKE '%{tuKhoa}%'";
+					dt.DefaultView.RowFilter = $"MaPhuong LIKE '%{tuKhoa}%' OR TenPhuong LIKE '%{tuKhoa}% OR DienThoai LIKE '%{tuKhoa}% OR DiaChi LIKE '%{tuKhoa}%'";
 				}
 			}
 		}

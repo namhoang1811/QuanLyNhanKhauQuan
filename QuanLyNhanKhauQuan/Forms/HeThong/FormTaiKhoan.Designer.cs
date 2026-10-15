@@ -218,6 +218,8 @@ namespace QuanLyNhanKhauQuan
             this.txtDienThoai.Name = "txtDienThoai";
             this.txtDienThoai.Size = new System.Drawing.Size(260, 25);
             this.txtDienThoai.TabIndex = 5;
+            this.txtDienThoai.TextChanged += new System.EventHandler(this.TxtDienThoai_TextChanged);
+            this.txtDienThoai.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtDienThoai_KeyPress);
             // 
             // FormTaiKhoan
             // 

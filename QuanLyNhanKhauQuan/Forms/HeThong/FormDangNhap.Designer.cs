@@ -32,6 +32,7 @@ namespace QuanLyNhanKhauQuan
             this.txtMatKhau = new System.Windows.Forms.TextBox();
             this.btnDangNhap = new System.Windows.Forms.Button();
             this.btnThoat = new System.Windows.Forms.Button();
+            this.btnRegister = new System.Windows.Forms.Button();
             this.panelMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -39,6 +40,7 @@ namespace QuanLyNhanKhauQuan
             // 
             this.panelMain.BackColor = System.Drawing.Color.White;
             this.panelMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelMain.Controls.Add(this.btnRegister);
             this.panelMain.Controls.Add(this.lblTieuDe);
             this.panelMain.Controls.Add(this.lblTenDangNhap);
             this.panelMain.Controls.Add(this.lblMatKhau);
@@ -127,6 +129,20 @@ namespace QuanLyNhanKhauQuan
             this.btnThoat.UseVisualStyleBackColor = false;
             this.btnThoat.Click += new System.EventHandler(this.BtnThoat_Click);
             // 
+            // btnRegister
+            // 
+            this.btnRegister.BackColor = System.Drawing.Color.Green;
+            this.btnRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRegister.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnRegister.ForeColor = System.Drawing.Color.White;
+            this.btnRegister.Location = new System.Drawing.Point(40, 188);
+            this.btnRegister.Name = "btnRegister";
+            this.btnRegister.Size = new System.Drawing.Size(105, 36);
+            this.btnRegister.TabIndex = 4;
+            this.btnRegister.Text = "Đăng ký";
+            this.btnRegister.UseVisualStyleBackColor = false;
+            this.btnRegister.Click += new System.EventHandler(this.BtnRegister_Click);
+            // 
             // FormDangNhap
             // 
             this.AcceptButton = this.btnDangNhap;
@@ -148,5 +164,7 @@ namespace QuanLyNhanKhauQuan
             this.ResumeLayout(false);
 
         }
-    }
+
+		private System.Windows.Forms.Button btnRegister;
+	}
 }

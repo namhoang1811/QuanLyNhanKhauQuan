@@ -1,6 +1,7 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace QuanLyNhanKhauQuan {
@@ -29,6 +30,11 @@ namespace QuanLyNhanKhauQuan {
 			// 2. Đổ dữ liệu mới vào bảng
 			dgvPhuong.DataSource = Db.LayDuLieu("SELECT TenDangNhap, HoTen, ViTri, Quyen, DienThoai FROM tblTaiKhoan ORDER BY NgaySua DESC");
 			// 3. Hủy bỏ hoàn toàn ô đang được focus ngầm
+			dgvPhuong.Columns["TenDangNhap"].HeaderText = "Tên đăng nhập";
+			dgvPhuong.Columns["HoTen"].HeaderText = "Họ và tên";
+			dgvPhuong.Columns["ViTri"].HeaderText = "Vị trí";
+			dgvPhuong.Columns["Quyen"].HeaderText = "Quyền hạn";
+			dgvPhuong.Columns["DienThoai"].HeaderText = "Điện thoại";
 			dgvPhuong.CurrentCell = null;
 			// 4. Bật lại sự kiện để bảng phản hồi với thao tác của người dùng như bình thường
 			dgvPhuong.SelectionChanged += DgvTaiKhoan_SelectionChanged;
@@ -149,5 +155,27 @@ namespace QuanLyNhanKhauQuan {
 			btnLamMoi.Visible = daChonDong;
 		}
 
+		private void TxtDienThoai_KeyPress(object sender, KeyPressEventArgs e) {
+			TextBox txt = sender as TextBox;
+			if(char.IsControl(e.KeyChar)) 
+				return;
+			if(!char.IsDigit(e.KeyChar) && e.KeyChar != '+') {
+				e.Handled = true; // Hủy thao tác nhập
+				return;
+			}
+			if(e.KeyChar == '+') {
+				if(txt.Text.Contains("+") || txt.SelectionStart != 0) {
+					e.Handled = true; // Hủy thao tác nhập
+				}
+			}
+		}
+
+		private void TxtDienThoai_TextChanged(object sender, EventArgs e) {
+			TextBox txt = sender as TextBox;
+			if(!Regex.IsMatch(txt.Text, @"^\+?[0-9]*$") && txt.Text != "") {
+				MessageBox.Show("Số điện thoại không hợp lệ!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				txt.Text = string.Empty;
+			}
+		}
 	}
 }

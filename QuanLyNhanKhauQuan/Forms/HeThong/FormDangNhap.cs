@@ -50,5 +50,10 @@ namespace QuanLyNhanKhauQuan {
 			}
 		}
 
+		private void BtnRegister_Click(object sender, EventArgs e) {
+			var form = new FormDangKy();
+			Hide();
+			form.ShowDialog();
+		}
 	}
 }
